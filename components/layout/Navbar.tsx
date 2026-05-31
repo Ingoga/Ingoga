@@ -53,9 +53,9 @@ export default function Navbar() {
                     <div className="flex flex-col">
                         <h4 className="font-semibold text-white text-[18px] mb-8">What we do</h4>
                         <div className="flex flex-col gap-5">
-                            <Link href="/work" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our work</Link>
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Products</a>
+                            <Link href="/products" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Products</Link>
                             <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Blog</a>
+                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Testimonials</a>
                         </div>
                     </div>
                     <div className="flex flex-col">
@@ -63,7 +63,7 @@ export default function Navbar() {
                         <div className="flex flex-col gap-5">
                             <Link href="/contact" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Start a project</Link>
                             <Link href="/contact" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Email us</Link>
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Book a call</a>
+                            <Link href="/contact" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Book a call</Link>
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ export default function ContactPage() {
         />
 
         {/* Contact Form Section */}
-        <section id="contact-section" className="py-24 px-8 md:px-16 max-w-7xl mx-auto">
+        <section id="contact-section" className="py-24 px-8 md:px-16 max-w-8xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Left - Contact Info */}
             <motion.div
@@ -141,7 +141,7 @@ export default function ContactPage() {
                   <label className="block text-sm text-zinc-400 mb-2">Email Address</label>
                   <input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="johndoe@example.com"
                     className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-800 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-700 transition-colors"
                   />
                 </div>
@@ -178,7 +178,7 @@ export default function ContactPage() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full md:w-auto px-8 py-3 bg-[#570D04] rounded-md text-white font-medium hover:bg-[#6a1005] transition-colors"
+                className="cursor-pointer w-full md:w-auto px-8 py-3 bg-[#570D04] rounded-md text-white font-medium hover:bg-[#6a1005] transition-colors"
               >
                 Send message
               </motion.button>
