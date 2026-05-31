@@ -109,7 +109,6 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          {/* Scroll Indicator - Chevron Style */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -117,21 +116,45 @@ export default function AboutPage() {
             className="absolute bottom-12 left-1/2 -translate-x-1/2"
           >
             <motion.button
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="w-12 h-12 rounded-full border border-zinc-700 flex items-center justify-center hover:border-zinc-500 transition-colors cursor-pointer"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+              className="relative w-16 h-24 flex flex-col items-center justify-center gap-1 cursor-pointer group"
               onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+              style={{
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 100%)',
+                borderRadius: '43px',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+              }}
             >
               <svg 
-                width="20" 
-                height="20" 
+                width="32" 
+                height="32" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
-                strokeWidth="2" 
+                strokeWidth="1.5" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
-                className="text-zinc-400"
+                className="text-white/30 group-hover:text-zinc-500 transition-colors"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              
+              {/* Second Chevron - Bright with glow */}
+              <svg 
+                width="32" 
+                height="32" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className="text-white group-hover:text-zinc-200 transition-colors -mt-6"
+                style={{
+                  filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))'
+                }}
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
