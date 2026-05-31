@@ -11,7 +11,7 @@ export default function Footer() {
                 {/* Left Side: Logo */}
                 <div className="flex flex-col gap-6 max-w-xs">
                     <div className="flex flex-col gap-1">
-                        <h3 className="font-semibold text-lg mb-2 text-white/50">Contact Us</h3>
+                        <h3 className="font-semibold text-xl mb-2 text-white">Contact Us</h3>
                         <div className="flex items-center gap-3 mt-4">
                             <span className="text-white font-medium text-lg">Ingoga Technologies</span>
                         </div>
@@ -40,19 +40,19 @@ export default function Footer() {
                 {/* Links Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-12 w-full md:w-auto">
                     <div className="flex flex-col gap-4">
-                        <h4 className="font-semibold text-white/50 mb-2">Explore</h4>
+                        <h4 className="font-semibold text-white mb-2">Explore</h4>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Home</a>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">About us</a>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Why us</a>
                     </div>
                     <div className="flex flex-col gap-4">
-                        <h4 className="font-semibold text-white/50 mb-2">What we do</h4>
+                        <h4 className="font-semibold text-white mb-2">What we do</h4>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Our Gallery</a>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Our Products</a>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Our Blog</a>
                     </div>
                     <div className="flex flex-col gap-4">
-                        <h4 className="font-semibold text-white/50 mb-2">Contact us</h4>
+                        <h4 className="font-semibold text-white mb-2">Contact us</h4>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Start a project</a>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Email us</a>
                         <a href="#" className="text-zinc-300 text-sm hover:text-white transition">Book a call</a>
@@ -69,7 +69,7 @@ export default function Footer() {
                             placeholder="Your email address"
                             className="bg-transparent text-sm text-white px-4 py-2 outline-none w-full"
                         />
-                        <button className="bg-[#b81d1c] hover:bg-red-700 text-white text-xs px-6 py-2 rounded-full transition whitespace-nowrap">
+                        <button className="cursor-pointer bg-[#590E04] hover:bg-red-700 text-white text-xs px-4 py-2 rounded-full transition whitespace-nowrap font-semibold">
                             Get Notified
                         </button>
                     </div>

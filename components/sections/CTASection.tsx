@@ -19,9 +19,9 @@ export default function CTASection() {
             Ingoga helps you bring more forward momentum, tracking everything from a single central hub seamlessly.
           </p>
           <motion.button
-            whileHover={{ scale: 1.05, filter: "brightness(1.2)" }}
+            whileHover={{ filter: "brightness(1.2)" }}
             whileTap={{ scale: 0.98 }}
-            className="cursor-pointer px-8 py-4 rounded-full text-white font-medium text-[16px] tracking-wide relative overflow-hidden transition-all duration-300"
+            className="cursor-pointer px-8 py-4 rounded-full text-white font-medium text-[16px] relative overflow-hidden transition-all duration-300"
             style={{
               backgroundColor: '#030303',
               boxShadow: 'inset 0 0 20px 2px rgba(157,20,2,0.5)',

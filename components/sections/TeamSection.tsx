@@ -63,7 +63,7 @@ export default function TeamSection() {
             <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/20"></div>
 
             {/* Glass Info Card */}
-            <div className="absolute inset-x-2 bottom-2 p-4 rounded-xl bg-transparent border border-white/10 flex flex-col justify-end">
+            <div className="absolute inset-x-2 bottom-2 p-4 h-48 rounded-xl bg-transparent border border-white/10 flex flex-col justify-end">
               <p className="text-white font-medium text-sm md:text-lg leading-tight mb-6">
                 {member.text}
               </p>
