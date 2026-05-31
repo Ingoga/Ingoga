@@ -55,69 +55,42 @@ export default function Home() {
           </div>
 
           <div
-            className="relative z-10 flex flex-col items-center w-full max-w-[840px] mx-auto"
+            className="relative z-10 flex flex-col items-center w-full max-w-[1000px] mx-auto"
             style={{
-              ['--hero-tagline-h' as string]: '60px',
-              ['--hero-title-h' as string]: '220px',
-              ['--hero-desc-h' as string]: '220px',
-              ['--hero-tagline-y' as string]: '60px',
-              ['--hero-title-y' as string]: '280px',
-              ['--hero-desc-y' as string]: '500px',
-              ['--grid-line' as string]: 'rgba(255, 255, 255, 0.1)',
-              ['--grid-fade-h' as string]: 'linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%)',
-              ['--grid-fade-v' as string]: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
+              // Heights
+              ['--tagline-h' as string]: '70px',
+              ['--title-h' as string]: '210px',
+              ['--desc-h' as string]: '180px',
+              // Y Positions for horizontal lines
+              ['--line-1-y' as string]: '0px',
+              ['--line-2-y' as string]: '70px',
+              ['--line-3-y' as string]: '280px',
+              ['--line-4-y' as string]: '460px',
+              // Width boundaries
+              ['--inner-w' as string]: '640px',
+              ['--outer-w' as string]: '920px',
+              // Styling
+              ['--grid-line' as string]: 'rgba(255, 255, 255, 0.08)',
+              ['--grid-fade-h' as string]: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+              ['--grid-fade-v' as string]: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
             }}
           >
-            {/* Blueprint grid — lines aligned to content bands */}
+            {/* Blueprint grid lines */}
             <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-              {/* Main vertical guides — full column height through buttons */}
-              <div
-                className="absolute left-0 w-px"
-                style={{
-                  top: '-72px',
-                  bottom: '-96px',
-                  background: 'var(--grid-line)',
-                  WebkitMaskImage: 'var(--grid-fade-v)',
-                  maskImage: 'var(--grid-fade-v)',
-                }}
-              />
-              <div
-                className="absolute right-0 w-px"
-                style={{
-                  top: '-72px',
-                  bottom: '-96px',
-                  background: 'var(--grid-line)',
-                  WebkitMaskImage: 'var(--grid-fade-v)',
-                  maskImage: 'var(--grid-fade-v)',
-                }}
-              />
+              {/* INNER vertical guides */}
+              <div className="absolute left-1/2 w-px bg-white/5" style={{ top: '-100px', bottom: '-200px', transform: 'translateX(calc(var(--inner-w) / -2))', WebkitMaskImage: 'var(--grid-fade-v)', maskImage: 'var(--grid-fade-v)' }} />
+              <div className="absolute left-1/2 w-px bg-white/5" style={{ top: '-100px', bottom: '-200px', transform: 'translateX(calc(var(--inner-w) / 2))', WebkitMaskImage: 'var(--grid-fade-v)', maskImage: 'var(--grid-fade-v)' }} />
 
-              {/* Tagline side segments — narrower frame around subtitle */}
-              <div
-                className="absolute left-1/2 w-px"
-                style={{
-                  top: '0',
-                  height: 'var(--hero-tagline-y)',
-                  transform: 'translateX(calc(-225px - 0.5px))',
-                  background: 'var(--grid-line)',
-                }}
-              />
-              <div
-                className="absolute left-1/2 w-px"
-                style={{
-                  top: '0',
-                  height: 'var(--hero-tagline-y)',
-                  transform: 'translateX(calc(225px - 0.5px))',
-                  background: 'var(--grid-line)',
-                }}
-              />
+              {/* OUTER vertical guides */}
+              <div className="absolute left-1/2 w-px bg-white/5" style={{ top: '-100px', bottom: '-200px', transform: 'translateX(calc(var(--outer-w) / -2))', WebkitMaskImage: 'var(--grid-fade-v)', maskImage: 'var(--grid-fade-v)' }} />
+              <div className="absolute left-1/2 w-px bg-white/5" style={{ top: '-100px', bottom: '-200px', transform: 'translateX(calc(var(--outer-w) / 2))', WebkitMaskImage: 'var(--grid-fade-v)', maskImage: 'var(--grid-fade-v)' }} />
 
-              {/* Horizontal guides — one per content band boundary */}
+              {/* Horizontal guides */}
               {[
-                { top: '0', key: 'top' },
-                { top: 'var(--hero-tagline-y)', key: 'tagline' },
-                { top: 'var(--hero-title-y)', key: 'title' },
-                { top: 'var(--hero-desc-y)', key: 'desc' },
+                { top: 'var(--line-1-y)', key: '1' },
+                { top: 'var(--line-2-y)', key: '2' },
+                { top: 'var(--line-3-y)', key: '3' },
+                { top: 'var(--line-4-y)', key: '4' },
               ].map(({ top, key }) => (
                 <div
                   key={key}
@@ -132,48 +105,48 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Red diamond intersection markers — tagline & paragraph band corners */}
-            {(
-              [
-                { top: 'var(--hero-tagline-y)', sides: ['left', 'right'] as const },
-                { top: 'var(--hero-desc-y)', sides: ['left', 'right'] as const },
-              ] as const
-            ).flatMap(({ top, sides }) =>
-              sides.map((side) => (
-                <div
-                  key={`${top}-${side}`}
-                  className="absolute w-[8px] h-[8px] rotate-45 pointer-events-none"
-                  style={{
-                    top,
-                    [side]: '-4px',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    background: '#d11c1c',
-                    boxShadow: '0 0 10px rgba(255, 0, 0, 0.85), 0 0 4px rgba(255, 60, 60, 0.6)',
-                  }}
-                  aria-hidden="true"
-                />
-              ))
-            )}
+            {/* Red diamond intersection markers (Rhombus) */}
+
+            {/* Top Outer Diamonds (Intersection of Line 2 and Outer Verticals) */}
+            <div className="absolute w-[6px] h-[6px] bg-[#d11c1c] rotate-45 pointer-events-none shadow-[0_0_12px_rgba(255,0,0,1)]" style={{ top: 'var(--line-2-y)', left: '50%', transform: 'translate(calc(var(--outer-w) / -2 - 3px), -50%) rotate(45deg)' }} />
+            <div className="absolute w-[6px] h-[6px] bg-[#d11c1c] rotate-45 pointer-events-none shadow-[0_0_12px_rgba(255,0,0,1)]" style={{ top: 'var(--line-2-y)', left: '50%', transform: 'translate(calc(var(--outer-w) / 2 - 3px), -50%) rotate(45deg)' }} />
+
+            {/* Middle Outer Diamonds (Intersection of Line 3 and Outer Verticals) */}
+            <div className="absolute w-[6px] h-[6px] bg-[#d11c1c] rotate-45 pointer-events-none shadow-[0_0_12px_rgba(255,0,0,1)]" style={{ top: 'var(--line-3-y)', left: '50%', transform: 'translate(calc(var(--outer-w) / -2 - 3px), -50%) rotate(45deg)' }} />
+            <div className="absolute w-[6px] h-[6px] bg-[#d11c1c] rotate-45 pointer-events-none shadow-[0_0_12px_rgba(255,0,0,1)]" style={{ top: 'var(--line-3-y)', left: '50%', transform: 'translate(calc(var(--outer-w) / 2 - 3px), -50%) rotate(45deg)' }} />
+
+            {/* Bottom Inner Diamonds (Intersection of Line 4 and Inner Verticals) */}
+            <div className="absolute w-[6px] h-[6px] bg-[#d11c1c] rotate-45 pointer-events-none shadow-[0_0_12px_rgba(255,0,0,1)]" style={{ top: 'var(--line-4-y)', left: '50%', transform: 'translate(calc(var(--inner-w) / -2 - 3px), -50%) rotate(45deg)' }} />
+            <div className="absolute w-[6px] h-[6px] bg-[#d11c1c] rotate-45 pointer-events-none shadow-[0_0_12px_rgba(255,0,0,1)]" style={{ top: 'var(--line-4-y)', left: '50%', transform: 'translate(calc(var(--inner-w) / 2 - 3px), -50%) rotate(45deg)' }} />
 
             {/* CONTENT */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="flex items-center justify-center w-[450px] max-w-[80vw] relative mx-auto"
-              style={{ height: 'var(--hero-tagline-h)' }}
+              className="flex items-center justify-center relative mx-auto"
+              style={{ height: 'var(--tagline-h)', width: 'var(--inner-w)' }}
             >
-              <p className="text-[14px] md:text-[16px] font-medium text-white tracking-wide">Built In Rwanda - Transforming Africa</p>
+              <p className="text-sm md:text-lg font-medium text-zinc-100">Built In Rwanda - Transforming Africa</p>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-              className="flex items-center justify-center w-full"
-              style={{ height: 'var(--hero-title-h)' }}
+              className="flex items-center justify-center w-full relative"
+              style={{ height: 'var(--title-h)' }}
             >
-              <h1 className="text-8xl sm:text-9xl md:text-[165px] font-bold text-[#b81d1c] tracking-tighter scale-y-[1.15] select-none">
+              {/* Blurred ghost copy — Layer Blur 19 */}
+              <h1
+                aria-hidden="true"
+                className="absolute text-8xl sm:text-9xl md:text-[172px] font-medium text-[#9D1402] tracking-tighter scale-y-[1.1] select-none pointer-events-none"
+                style={{ filter: 'blur(19px)', opacity: 0.6 }}
+              >
+                INGOGA
+              </h1>
+              {/* Sharp top layer */}
+              <h1 className="relative text-8xl sm:text-9xl md:text-[172px] font-medium text-[#9D1402] tracking-tighter scale-y-[1.1] select-none" style={{ textShadow: '0 0 50px rgba(220, 20, 20, 0.5)' }}>
                 INGOGA
               </h1>
             </motion.div>
@@ -182,10 +155,10 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex items-center justify-center w-full px-4"
-              style={{ height: 'var(--hero-desc-h)' }}
+              className="flex items-center justify-center relative mx-auto px-10"
+              style={{ height: 'var(--desc-h)', width: 'var(--inner-w)' }}
             >
-              <p className="text-[15px] md:text-[18px] text-zinc-300 leading-[1.8] font-medium text-center max-w-[620px]">
+              <p className="text-[15px] md:text-[17px] text-zinc-300 leading-[1.8] font-medium text-center">
                 We engineer advanced AI ecosystems, digital<br className="hidden sm:block" />health platforms, and emergency safety systems<br className="hidden sm:block" />that transform how nations operate, respond,<br className="hidden sm:block" />and thrive.
               </p>
             </motion.div>
@@ -195,8 +168,8 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="absolute w-full flex flex-col sm:flex-row items-center justify-center gap-8 z-10 transform scale-95 md:scale-100 pb-12"
-              style={{ top: 'calc(var(--hero-desc-y) + 15px)' }}
+              className="absolute w-full flex flex-col sm:flex-row items-center justify-center gap-10 z-10"
+              style={{ top: 'calc(var(--line-4-y) + 20px)' }}
             >
               <motion.button
                 whileHover={{ scale: 1.05, filter: "brightness(1.2)" }}
@@ -566,7 +539,7 @@ export default function Home() {
               whileTap={{ scale: 0.95 }}
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-md border border-zinc-700 hover:bg-zinc-900 text-[14px] font-medium transition text-white"
             >
-              Meet the entire team <span className="text-xs">→</span>
+              Meet the entire team <span className="text-xs -rotate-45">→</span>
             </motion.button>
           </div>
 
@@ -578,7 +551,7 @@ export default function Home() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
           >
             {[
-              { name: "Sylvia M", role: "Management", img: "/Girl.jpg", text: "Helping structure and transform our management" },
+              { name: "Sylvia M", role: "Management", img: "/Girl.jpg", text: "Align transformed our project management " },
               { name: "Patrick Ngonga", role: "Founder & CEO", img: "/Man.jpg", text: "Leading African deep-tech innovation" },
               { name: "Herbert Heshima", role: "Chief Technology Officer", img: "/Boy.jpg", text: "Leading technical innovation" },
               { name: "Diane Ngoga", role: "Chief Information Security Officer", img: "/Girl.jpg", text: "Ensuring data protection & security" }
@@ -587,23 +560,23 @@ export default function Home() {
                 key={i}
                 variants={fadeInUp}
                 whileHover={{ y: -5 }}
-                className="group relative rounded-[48px] overflow-hidden bg-[#0a0a0a]" style={{ aspectRatio: '3/4' }}
+                className="cursor-pointer group relative rounded-xl overflow-hidden bg-[#0a0a0a]" style={{ aspectRatio: '3/4' }}
               >
                 <img
                   src={member.img}
                   alt={member.name}
-                  className="absolute inset-0 w-full h-full object-cover grayscale transition duration-700 ease-in-out group-hover:grayscale-0"
+                  className="absolute inset-0 w-full h-full object-cover transition duration-700 ease-in-out"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/20"></div>
 
                 {/* Glass Info Card */}
-                <div className="absolute inset-x-4 bottom-4 p-8 rounded-[32px] bg-black/40 backdrop-blur-xl border border-white/10 flex flex-col justify-end">
-                  <p className="text-white font-bold text-[22px] md:text-[24px] leading-tight mb-6">
+                <div className="absolute inset-x-2 bottom-2 p-4 rounded-xl bg-transparent border border-white/10 flex flex-col justify-end">
+                  <p className="text-white font-medium text-sm md:text-lg leading-tight mb-6">
                     {member.text}
                   </p>
-                  <div className="space-y-1 mb-6">
+                  <div className="space-y-1 mb-3">
                     <p className="text-white font-semibold text-[16px] md:text-[18px]">{member.name}</p>
-                    <p className="text-zinc-500 text-[13px] md:text-[14px]">{member.role}</p>
+                    <p className="text-gray-400 text-[13px] md:text-[14px]">{member.role}</p>
                   </div>
 
                   {/* Social Icons */}
@@ -638,7 +611,7 @@ export default function Home() {
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
-            className="text-zinc-400 text-lg mb-16 max-w-2xl mx-auto leading-relaxed"
+            className="text-white/90 text-lg mb-16 max-w-2xl mx-auto leading-relaxed"
           >
             The brilliant minds behind Africa's next generation of<br className="hidden md:block" />intelligent health and evolving systems
           </motion.p>
@@ -648,7 +621,7 @@ export default function Home() {
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-left px-28"
           >
             {[
               { text: "The advanced analytics have given us better insight into project performance than ever", author: "David Foster", company: "Nexun Inc." },
@@ -661,8 +634,8 @@ export default function Home() {
               <motion.div
                 key={i}
                 variants={fadeInUp}
-                whileHover={{ y: -5, borderColor: "rgba(220, 38, 38, 0.3)" }}
-                className="border border-zinc-800/60 rounded-2xl p-8 bg-[#050505] hover:border-zinc-700 transition duration-300 flex flex-col justify-between gap-10"
+                whileHover={{ borderColor: 'white' }}
+                className="cursor-pointer border-l-2 border-t-2 border-white/10 rounded-l-2xl rounded-r-none rounded-b-none p-6 bg-[#050505] transition duration-500 flex flex-col justify-between gap-6"
               >
                 <p className="text-zinc-400 text-[15px] leading-relaxed">{t.text}</p>
                 <div className="flex items-center gap-4">
@@ -681,50 +654,102 @@ export default function Home() {
 
 
 
-        {/* FAQ SECTION */}
-        <section className="py-24 px-6 max-w-7xl mx-auto flex flex-col md:flex-row gap-16 lg:gap-24">
-          <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="flex-1"
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">Everything You Need to<br />know, All in One Place</h2>
-            <p className="text-zinc-400 text-lg max-w-md mt-6 leading-relaxed">
-              Whatever the issue, whether our clinic platform, Noux, or MEDIX we have dedicated support and FAQ for you.
-            </p>
-          </motion.div>
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="flex-1 space-y-3"
-          >
-            {[
-              "Why does pricing go so up single year?",
-              "What innovations you have done?",
-              "What is your process model?",
-              "Can I use Medix offline on my PC?",
-              "Do you use local AWS focus server for global data?",
-              "How to book a demo call for my clinic?"
-            ].map((q, i) => (
-              <motion.details
-                key={i}
-                variants={fadeInUp}
-                className="group bg-[#111]/80 rounded-2xl border border-zinc-800/60 p-6 cursor-pointer"
+        {/* FAQ SECTION — Editorial Ticker Design */}
+        <section className="py-32 w-full relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-8 lg:px-20">
+            {/* Header Row */}
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-end mb-20 border-b border-white/10 pb-12"
+            >
+              <div>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
+                  Everything You Need to know,<br></br> All in One Place
+                </h2>
+              </div>
+              <p className="text-zinc-500 text-base max-w-md self-end leading-relaxed pb-1">
+                Whether our clinic platform, Noux, or MEDIX — we have
+                answers. Click any question to expand the full context.
+              </p>
+            </motion.div>
+
+            {/* FAQ Items — Ticker/Table Style */}
+            <motion.div
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true }}
+            >
+              {[
+                { q: "Why does pricing go up each year?", a: "Our system is built for resilience. You can contact support for detailed breakdowns of our features and integrations tailored specifically to your clinical needs or institutional standards." },
+                { q: "What innovations have you built?", a: "We engineer advanced AI ecosystems, digital health platforms, and emergency safety systems that transform how nations operate, respond, and thrive." },
+                { q: "What is your process model?", a: "Our process model is centered around agile development, continuous feedback, and iterative deployment to ensure maximum client satisfaction and platform stability." },
+                { q: "Can I use Medix offline on my PC?", a: "Yes. Medix supports offline functionality with local data caching. Data is synced automatically once a connection is restored, ensuring continuity of care." },
+                { q: "Do you use local AWS servers for global data?", a: "We leverage a multi-region cloud architecture to ensure low-latency access and data sovereignty across all African regions where our platforms are deployed." },
+                { q: "How to book a demo call for my clinic?", a: "Visit our contact page or click 'Partner with us' to schedule a tailored 30-minute discovery call with one of our solution architects." },
+              ].map((item, i) => (
+                <motion.details
+                  key={i}
+                  variants={fadeInUp}
+                  className="group border-t border-white/8 cursor-pointer"
+                >
+                  <summary className="list-none outline-none py-7 flex items-start gap-6 md:gap-10">
+                    {/* Number Rail */}
+                    <span className="text-[11px] font-mono text-red-500/60 pt-1 shrink-0 w-6 text-right tabular-nums">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {/* Question */}
+                    <div className="flex-1 flex justify-between items-center gap-4">
+                      <span className="text-white font-semibold text-lg md:text-2xl tracking-tight group-open:text-red-400 transition-colors duration-300">
+                        {item.q}
+                      </span>
+                      {/* Animated Plus → Cross */}
+                      <div className="relative w-5 h-5 shrink-0 opacity-40 group-open:opacity-100 transition-opacity">
+                        <span className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2 transition-transform duration-300" />
+                        <span className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2 rotate-90 group-open:rotate-0 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </summary>
+
+                  {/* Answer — slides in beneath number rail */}
+                  <div className="pl-[calc(1.5rem+2.5rem)] md:pl-[calc(1.5rem+3.5rem)] pb-8">
+                    <div className="flex gap-6">
+                      <div className="w-px bg-red-500/30 shrink-0" />
+                      <p className="text-zinc-400 text-base leading-[1.8] max-w-2xl">
+                        {item.a}
+                      </p>
+                    </div>
+                  </div>
+                </motion.details>
+              ))}
+            </motion.div>
+
+            {/* Footer CTA Row */}
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-12 mt-4"
+            >
+              <p className="text-zinc-500 text-sm">Still have questions? Reach out directly.</p>
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group cursor-pointer px-8 py-3.5 rounded-full text-white font-semibold text-sm tracking-wide relative overflow-hidden transition-all duration-300"
+                style={{
+                  border: '1px solid rgba(239, 68, 68, 0.35)',
+                  backgroundColor: 'transparent',
+                }}
               >
-                <summary className="font-semibold flex justify-between items-center text-sm md:text-base list-none outline-none">
-                  {q}
-                  <span className="text-zinc-500 opacity-60 group-open:rotate-180 transition duration-300">+</span>
-                </summary>
-                <p className="text-zinc-400 text-sm mt-5 leading-relaxed pr-8">
-                  Our system is built for resilience. You can contact support for detailed breakdowns of our features and integrations tailored specifically to your clinical needs or institutional standards.
-                </p>
-              </motion.details>
-            ))}
-          </motion.div>
+                <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                Contact our support team →
+              </motion.button>
+            </motion.div>
+          </div>
         </section>
 
         {/* CTA SECTION */}

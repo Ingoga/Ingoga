@@ -1,6 +1,3 @@
-
-
-
 export default function Footer() {
     return (
         <footer className="w-full bg-[#050505] text-white py-16 px-8 md:px-16 border-t border-zinc-900 relative overflow-hidden">
