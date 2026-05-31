@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Plus, X, Moon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -53,7 +53,7 @@ export default function Navbar() {
                     <div className="flex flex-col">
                         <h4 className="font-semibold text-white text-[18px] mb-8">What we do</h4>
                         <div className="flex flex-col gap-5">
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Gallery</a>
+                            <Link href="/work" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our work</Link>
                             <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Products</a>
                             <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Blog</a>
                         </div>
@@ -61,8 +61,8 @@ export default function Navbar() {
                     <div className="flex flex-col">
                         <h4 className="font-semibold text-white text-[18px] mb-8">Contact us</h4>
                         <div className="flex flex-col gap-5">
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Start a project</a>
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Email us</a>
+                            <Link href="/contact" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Start a project</Link>
+                            <Link href="/contact" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Email us</Link>
                             <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Book a call</a>
                         </div>
                     </div>

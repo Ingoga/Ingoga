@@ -5,6 +5,7 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import TeamSection from "../../components/sections/TeamSection";
 import CTASection from "../../components/sections/CTASection";
+import HeroWithScroll from "../../components/sections/HeroWithScroll";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -19,7 +20,6 @@ const stats = [
   { value: 50, suffix: "+", label: "Team members" },
   { value: 1, suffix: "st", label: "Pan-African Group" }
 ];
-
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -55,112 +55,20 @@ export default function AboutPage() {
       <Navbar />
 
       <main className="flex-1 w-full">
-        {/* Hero Section - Exactly as in image */}
-        <section className="relative pt-48 pb-24 px-8 flex flex-col items-center justify-center min-h-[100vh] overflow-hidden">
-          {/* Dot Pattern - Top Center */}
-          <div className="absolute top-32 left-1/2 -translate-x-1/2 w-32 h-32 opacity-30 -rotate-45">
-            <svg width="100%" height="100%" viewBox="0 0 100 100">
-              <defs>
-                <pattern id="dots-top" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-                  <circle cx="2" cy="2" r="1" fill="#666" />
-                </pattern>
-              </defs>
-              <rect width="60" height="60" fill="url(#dots-top)" />
-            </svg>
-          </div>
-
-          {/* Dot Pattern - Bottom Left */}
-          <div className="absolute bottom-48 left-20 w-48 h-48 opacity-20 -rotate-45">
-            <svg width="100%" height="100%" viewBox="0 0 100 100">
-              <defs>
-                <pattern id="dots-left" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-                  <circle cx="2" cy="2" r="1" fill="#666" />
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="url(#dots-left)" />
-            </svg>
-          </div>
-
-          {/* Dot Pattern - Bottom Right */}
-          <div className="absolute bottom-48 right-20 w-48 h-48 opacity-20 -rotate-45">
-            <svg width="100%" height="100%" viewBox="0 0 100 100">
-              <defs>
-                <pattern id="dots-right" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-                  <circle cx="2" cy="2" r="1" fill="#666" />
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="url(#dots-right)" />
-            </svg>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto relative z-10"
-          >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
+        <HeroWithScroll
+          title={
+            <>
               We Redefine What Emerging<br />Nations Can Build
-            </h1>
-            <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+            </>
+          }
+          description={
+            <>
               Ingoga Technologies Group is a pioneering deep-tech company<br className="hidden md:block" />
               headquartered in Kigali, Rwanda — engineering intelligent systems for<br className="hidden md:block" />
               healthcare, safety, and infrastructure.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2"
-          >
-            <motion.button
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-              className="relative w-16 h-24 flex flex-col items-center justify-center gap-1 cursor-pointer group"
-              onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-              style={{
-                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 100%)',
-                borderRadius: '43px',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-              }}
-            >
-              <svg 
-                width="32" 
-                height="32" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                className="text-white/30 group-hover:text-zinc-500 transition-colors"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-              
-              {/* Second Chevron - Bright with glow */}
-              <svg 
-                width="32" 
-                height="32" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                className="text-white group-hover:text-zinc-200 transition-colors -mt-6"
-                style={{
-                  filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))'
-                }}
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </motion.button>
-          </motion.div>
-        </section>
+            </>
+          }
+        />
 
         {/* Hey Section with Rectangle 10 Image */}
         <section className="py-24 px-8 md:px-16 max-w-7xl mx-auto">

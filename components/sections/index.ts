@@ -1,4 +1,5 @@
 export { default as HeroSection } from './HeroSection';
+export { default as HeroWithScroll } from './HeroWithScroll';
 export { default as InnovationSection } from './InnovationSection';
 export { default as ProductsSection } from './ProductsSection';
 export { default as BlogsSection } from './BlogsSection';
