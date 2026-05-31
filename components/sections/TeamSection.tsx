@@ -16,7 +16,7 @@ const staggerContainer = {
 const teamMembers = [
   { name: "Sylvia M", role: "Management", img: "/Girl.jpg", text: "Align transformed our project management" },
   { name: "Patrick Ngonga", role: "Founder & CEO", img: "/Man.jpg", text: "Leading African deep-tech innovation" },
-  { name: "Herbert Heshima", role: "Chief Technology Officer", img: "/Boy.jpg", text: "Leading technical innovation" },
+  { name: "Herbert Heshima", role: "Chief Technology Officer", img: "/Boy.jpg", text: "Leading Technical Innovation & Creativity" },
   { name: "Diane Ngoga", role: "Chief Information Security Officer", img: "/Girl.jpg", text: "Ensuring data protection & security" }
 ];
 
