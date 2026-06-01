@@ -14,9 +14,9 @@ export default function HeroWithScroll({ title, description, showDots = true }: 
     <section className="relative pt-48 pb-24 px-8 flex flex-col items-center justify-center min-h-[100vh] overflow-hidden">
       {showDots && (
         <>
-          <DotPattern position="top-center" size="sm" opacity={0.3} />
-          <DotPattern position="bottom-left" size="lg" opacity={0.2} />
-          <DotPattern position="bottom-right" size="lg" opacity={0.2} />
+          <DotPattern position="top-center" size="sm" opacity={0.5} />
+          <DotPattern position="bottom-left" size="lg" opacity={0.5} />
+          <DotPattern position="bottom-right" size="lg" opacity={0.5} />
         </>
       )}
 
