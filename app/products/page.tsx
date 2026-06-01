@@ -24,8 +24,8 @@ const projects = [
   {
     id: 2,
     name: "UDS",
-    company: "Universal Digital Systems",
-    description: "A comprehensive digital health platform connecting patients, providers, and facilities across Africa.",
+    company: "Ubuzima Digital System",
+    description: "A clinical intelligence platform built for real-world healthcare in East Africa. Not just records — decision support, workflow automation, and intelligent care delivery.",
     image: "/UDS.jpg",
     features: [
       "Electronic health records",
@@ -38,8 +38,8 @@ const projects = [
   {
     id: 3,
     name: "RESAS",
-    company: "Rwanda Emergency Services",
-    description: "AI-powered emergency response system for rapid dispatch and coordination.",
+    company: "Road Emergency Safety Automation System",
+    description: "A high-precision emergency response platform combining IoT sensors, real-time software, and intelligent automation. Every second counts — RESAS is engineered for speed and accuracy.",
     image: "/RESAS.png",
     features: [
       "Real-time dispatch",
@@ -80,7 +80,7 @@ export default function ProductsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-16">
             {/* Left - Title */}
             <div className="space-y-4">
-              <div className="w-36 h-[1px] bg-zinc-700"></div>
+              <div className="w-72 h-[2px] bg-white"></div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -96,21 +96,21 @@ export default function ProductsPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-zinc-400 text-[15px] leading-relaxed"
+              className="text-zinc-400 text-[18px] leading-relaxed"
             >
               From underground talents to established names, I've shaped tracks that connect with listeners on a deeper level, bringing each artist's vision to life.
             </motion.p>
           </div>
 
           {/* Bottom Section - Image and Project Details */}
-          <div className="grid grid-cols-1 lg:grid-cols-[47%_53%] gap-12 items-start">
-            {/* Left - Project Image with Border */}
+          <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-0 border border-zinc-800 rounded-xl overflow-hidden h-[500px]">
+            {/* Left - Project Image */}
             <motion.div
               key={`image-${activeProject}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="relative bg-white rounded-xl overflow-hidden aspect-[4/3] flex items-center justify-center border-[3px] border-zinc-900"
+              className="relative bg-white flex items-center justify-center h-full"
             >
               <img 
                 src={projects[activeProject].image} 
@@ -125,14 +125,14 @@ export default function ProductsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="space-y-7 pt-4"
+              className="bg-black p-12 flex flex-col justify-center space-y-7 h-full"
             >
               {/* Project Name */}
               <div>
                 <h3 className="text-[2.75rem] font-bold mb-2 leading-tight">
                   {projects[activeProject].name}
                 </h3>
-                <p className="text-zinc-500 text-sm tracking-wide">
+                <p className="text-white/60 text-md">
                   {projects[activeProject].company}
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function ProductsPage() {
                 href={projects[activeProject].link}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-transparent border border-zinc-800 rounded-md text-white text-[13px] hover:border-zinc-600 transition-colors mt-2"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-transparent border border-zinc-800 rounded-md text-white text-[13px] hover:border-zinc-600 transition-colors w-fit"
               >
                 Visit {projects[activeProject].name}
                 <span>→</span>
@@ -186,7 +186,7 @@ export default function ProductsPage() {
                 className={`h-2 rounded-full transition-all duration-300 ${
                   activeProject === index 
                     ? 'bg-white w-6' 
-                    : 'bg-zinc-700 hover:bg-zinc-600 w-2'
+                    : 'border border-white hover:border-white/60 w-2'
                 }`}
                 aria-label={`View project ${index + 1}`}
               />
