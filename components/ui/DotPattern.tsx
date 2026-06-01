@@ -24,7 +24,7 @@ export default function DotPattern({
   };
 
   const positionClasses = {
-    'top-center': 'top-42 left-1/2 -translate-x-1/2',
+    'top-center': 'top-32 left-1/2 -translate-x-1/2',
     'top-left': 'top-32 left-20',
     'top-right': 'top-32 right-20',
     'bottom-left': 'bottom-48 left-20',
@@ -32,7 +32,8 @@ export default function DotPattern({
     'center': 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
   };
 
-  const patternId = `dots-${position}-${Math.random().toString(36).substring(2, 11)}`;
+  // Use stable ID based on position and size instead of random to avoid hydration mismatch
+  const patternId = `dots-${position}-${size}`;
   const patternSize = patternSizes[size];
 
   return (

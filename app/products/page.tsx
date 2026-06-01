@@ -11,10 +11,10 @@ const projects = [
     id: 1,
     name: "NEXUN",
     company: "NEXUN INC.",
-    description: "NEXUN is a next-generation AI-powered automation and intelligence platform designed to revolutionize energy and next-generation communities. NEXUN Inc builds the future layer by layer.",
+    description: "Advanced AI systems, medical automation, and emerging research in intelligence, energy, and next-generation computation. NEXUN Inc. builds the future layer by layer..",
     image: "/NEXUN.jpg",
     features: [
-      "Cloud satellite automation",
+      "Clinical workflow automation",
       "AI-powered decision support",
       "Offline-first architecture",
       "Multi-facility management"
@@ -51,7 +51,7 @@ const projects = [
   }
 ];
 
-export default function WorkPage() {
+export default function ProductsPage() {
   const [activeProject, setActiveProject] = useState(0);
 
   return (
@@ -75,112 +75,110 @@ export default function WorkPage() {
         />
 
         {/* Our Past Work Section */}
-        <section id="work-section" className="py-24 px-8 md:px-16 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-20 items-start">
-            {/* Left Column - Title and Image */}
-            <div className="space-y-8">
-              {/* Title with decorative line */}
-              <div className="space-y-6">
-                <div className="w-44 h-[1px] bg-zinc-700"></div>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-4xl md:text-5xl font-bold leading-tight"
-                >
-                  Our Past Work
-                </motion.h2>
-              </div>
-
-              {/* Project Image */}
-              <motion.div
-                key={`image-${activeProject}`}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="relative bg-white rounded-xl overflow-hidden aspect-[4/3] flex items-center justify-center"
-              >
-                <img 
-                  src={projects[activeProject].image} 
-                  alt={projects[activeProject].name}
-                  className="w-full h-full object-contain"
-                />
-              </motion.div>
-            </div>
-
-            {/* Right Column - Description and Project Details */}
-            <div className="space-y-16">
-              {/* Top Description */}
-              <motion.p
+        <section id="work-section" className="py-20 px-8 md:px-16 max-w-7xl mx-auto">
+          {/* Top Section - Title and Description */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-16">
+            {/* Left - Title */}
+            <div className="space-y-4">
+              <div className="w-36 h-[1px] bg-zinc-700"></div>
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-zinc-400 text-base leading-relaxed"
+                className="text-[2.75rem] font-bold leading-tight"
               >
-                From underground talents to established names, I've shaped tracks that connect with listeners on a deeper level, bringing each artist's vision to life.
-              </motion.p>
-
-              {/* Project Details */}
-              <motion.div
-                key={`details-${activeProject}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-8"
-              >
-                {/* Project Name */}
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold mb-3">
-                    {projects[activeProject].name}
-                  </h3>
-                  <p className="text-zinc-500 text-sm tracking-wide">
-                    {projects[activeProject].company}
-                  </p>
-                </div>
-
-                {/* Project Description */}
-                <p className="text-zinc-400 text-base leading-relaxed">
-                  {projects[activeProject].description}
-                </p>
-
-                {/* Features List */}
-                <div className="space-y-4">
-                  {projects[activeProject].features.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <svg 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-white flex-shrink-0"
-                      >
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                      </svg>
-                      <span className="text-zinc-300 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Visit Button */}
-                <motion.a
-                  href={projects[activeProject].link}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-transparent border border-zinc-800 rounded-md text-white text-sm hover:border-zinc-600 transition-colors mt-4"
-                >
-                  Visit {projects[activeProject].name}
-                  <span>→</span>
-                </motion.a>
-              </motion.div>
+                Our Past Work
+              </motion.h2>
             </div>
+
+            {/* Right - Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-zinc-400 text-[15px] leading-relaxed"
+            >
+              From underground talents to established names, I've shaped tracks that connect with listeners on a deeper level, bringing each artist's vision to life.
+            </motion.p>
+          </div>
+
+          {/* Bottom Section - Image and Project Details */}
+          <div className="grid grid-cols-1 lg:grid-cols-[47%_53%] gap-12 items-start">
+            {/* Left - Project Image with Border */}
+            <motion.div
+              key={`image-${activeProject}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative bg-white rounded-xl overflow-hidden aspect-[4/3] flex items-center justify-center border-[3px] border-zinc-900"
+            >
+              <img 
+                src={projects[activeProject].image} 
+                alt={projects[activeProject].name}
+                className="w-full h-full object-contain p-16"
+              />
+            </motion.div>
+
+            {/* Right - Project Details */}
+            <motion.div
+              key={`details-${activeProject}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-7 pt-4"
+            >
+              {/* Project Name */}
+              <div>
+                <h3 className="text-[2.75rem] font-bold mb-2 leading-tight">
+                  {projects[activeProject].name}
+                </h3>
+                <p className="text-zinc-500 text-sm tracking-wide">
+                  {projects[activeProject].company}
+                </p>
+              </div>
+
+              {/* Project Description */}
+              <p className="text-zinc-400 text-[15px] leading-relaxed">
+                {projects[activeProject].description}
+              </p>
+
+              {/* Features List */}
+              <div className="space-y-3.5">
+                {projects[activeProject].features.map((feature, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white flex-shrink-0"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span className="text-zinc-300 text-[14.5px]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Visit Button */}
+              <motion.a
+                href={projects[activeProject].link}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-transparent border border-zinc-800 rounded-md text-white text-[13px] hover:border-zinc-600 transition-colors mt-2"
+              >
+                Visit {projects[activeProject].name}
+                <span>→</span>
+              </motion.a>
+            </motion.div>
           </div>
 
           {/* Project Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-20">
+          <div className="flex justify-center gap-2 mt-16">
             {projects.map((_, index) => (
               <button
                 key={index}
