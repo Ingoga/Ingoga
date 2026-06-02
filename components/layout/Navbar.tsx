@@ -55,7 +55,7 @@ export default function Navbar() {
                         <div className="flex flex-col gap-5">
                             <Link href="/products" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Products</Link>
                             <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Blog</a>
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Testimonials</a>
+                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Gallery</a>
                         </div>
                     </div>
                     <div className="flex flex-col">

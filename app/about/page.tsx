@@ -213,13 +213,13 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative rounded-xl overflow-hidden aspect-[4/5] shadow-2xl">
+              <div className="relative rounded-xl overflow-hidden aspect-4/5 shadow-2xl">
                 <img
                   src="/Rectangle 10.png"
                   alt="Medical Technology"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
               </div>
             </motion.div>
 
