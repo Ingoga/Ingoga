@@ -43,26 +43,26 @@ export default function HeroSection() {
         {/* Modern Geometric Line Design - Inspired by Aligno */}
         
         {/* Top decorative lines */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-zinc-700 to-transparent"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-linear-to-r from-transparent via-zinc-700 to-transparent"></div>
         
         {/* Left side vertical accent */}
-        <div className="absolute top-[100px] left-[100px] w-[1px] h-[80px] bg-gradient-to-b from-zinc-700 to-transparent"></div>
-        <div className="absolute top-[100px] left-[100px] w-[40px] h-[1px] bg-gradient-to-r from-zinc-700 to-transparent"></div>
+        <div className="absolute top-[100px] left-[100px] w-px h-[80px] bg-linear-to-b from-zinc-700 to-transparent"></div>
+        <div className="absolute top-[100px] left-[100px] w-[40px] h-px bg-linear-to-r from-zinc-700 to-transparent"></div>
         
         {/* Right side vertical accent */}
-        <div className="absolute top-[100px] right-[100px] w-[1px] h-[80px] bg-gradient-to-b from-zinc-700 to-transparent"></div>
-        <div className="absolute top-[100px] right-[100px] w-[40px] h-[1px] bg-gradient-to-l from-zinc-700 to-transparent"></div>
+        <div className="absolute top-[100px] right-[100px] w-px h-[80px] bg-linear-to-b from-zinc-700 to-transparent"></div>
+        <div className="absolute top-[100px] right-[100px] w-[40px] h-px bg-linear-to-l from-zinc-700 to-transparent"></div>
         
         {/* Middle section decorative lines */}
-        <div className="absolute top-[280px] left-[80px] w-[1px] h-[100px] bg-gradient-to-b from-transparent via-zinc-700 to-transparent"></div>
-        <div className="absolute top-[280px] right-[80px] w-[1px] h-[100px] bg-gradient-to-b from-transparent via-zinc-700 to-transparent"></div>
+        <div className="absolute top-[280px] left-[80px] w-px h-[100px] bg-linear-to-b from-transparent via-zinc-700 to-transparent"></div>
+        <div className="absolute top-[280px] right-[80px] w-px h-[100px] bg-linear-to-b from-transparent via-zinc-700 to-transparent"></div>
         
         {/* Bottom decorative lines */}
-        <div className="absolute bottom-[80px] left-[120px] w-[1px] h-[60px] bg-gradient-to-t from-zinc-700 to-transparent"></div>
-        <div className="absolute bottom-[80px] left-[120px] w-[30px] h-[1px] bg-gradient-to-r from-zinc-700 to-transparent"></div>
+        <div className="absolute bottom-[80px] left-[120px] w-px h-[60px] bg-linear-to-t from-zinc-700 to-transparent"></div>
+        <div className="absolute bottom-[80px] left-[120px] w-[30px] h-px bg-linear-to-r from-zinc-700 to-transparent"></div>
         
-        <div className="absolute bottom-[80px] right-[120px] w-[1px] h-[60px] bg-gradient-to-t from-zinc-700 to-transparent"></div>
-        <div className="absolute bottom-[80px] right-[120px] w-[30px] h-[1px] bg-gradient-to-l from-zinc-700 to-transparent"></div>
+        <div className="absolute bottom-[80px] right-[120px] w-px h-[60px] bg-linear-to-t from-zinc-700 to-transparent"></div>
+        <div className="absolute bottom-[80px] right-[120px] w-[30px] h-px bg-linear-to-l from-zinc-700 to-transparent"></div>
         
         {/* Corner accent dots */}
         <div className="absolute top-[100px] left-[100px] w-2 h-2 bg-red-600 rounded-full shadow-[0_0_12px_rgba(239,68,68,0.8)]"></div>
