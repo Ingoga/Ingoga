@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import HeroWithScroll from "../../components/sections/HeroWithScroll";
+import NavigationDots from "../../components/ui/NavigationDots";
 import CTASection from "../../components/sections/CTASection";
 
 const projects = [
@@ -155,7 +156,7 @@ export default function ProductsPage() {
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-white flex-shrink-0"
+                      className="text-white shrink-0"
                     >
                       <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
@@ -178,20 +179,12 @@ export default function ProductsPage() {
           </div>
 
           {/* Project Navigation Dots */}
-          <div className="flex justify-center gap-2 mt-16">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveProject(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activeProject === index 
-                    ? 'bg-white w-6' 
-                    : 'border border-white hover:border-white/60 w-2'
-                }`}
-                aria-label={`View project ${index + 1}`}
-              />
-            ))}
-          </div>
+          <NavigationDots 
+            total={projects.length}
+            activeIndex={activeProject}
+            onChange={setActiveProject}
+            className="mt-16"
+          />
         </section>
 
         <CTASection />

@@ -11,7 +11,7 @@ interface HeroWithScrollProps {
 
 export default function HeroWithScroll({ title, description, showDots = true }: HeroWithScrollProps) {
   return (
-    <section className="relative pt-48 pb-24 px-8 flex flex-col items-center justify-center min-h-[100vh] overflow-hidden">
+    <section className="relative pt-48 pb-24 px-8 flex flex-col items-center justify-center min-h-screen overflow-hidden">
       {showDots && (
         <>
           <DotPattern position="top-center" size="sm" opacity={0.5} />
@@ -29,7 +29,7 @@ export default function HeroWithScroll({ title, description, showDots = true }: 
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
           {title}
         </h1>
-        <div className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+        <div className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-lg mx-auto">
           {description}
         </div>
       </motion.div>

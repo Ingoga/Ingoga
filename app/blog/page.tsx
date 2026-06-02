@@ -1,6 +1,8 @@
 "use client"
+import { useState } from "react";
 import { motion } from "framer-motion";
 import HeroWithScroll from "../../components/sections/HeroWithScroll";
+import NavigationDots from "../../components/ui/NavigationDots";
 import Link from "next/link";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
@@ -26,7 +28,7 @@ const blogs = [
   {
     slug: "ai-powered-clinical-decision-support",
     image: "/Heart-Beat-Measure.jpg",
-    tag: "AI & Health",
+    tag: "AI & Machine Learning",
     title: "How AI-Powered Clinical Decision Support Is Transforming Healthcare in Africa",
     desc: "A deep dive into how intelligent systems are reducing diagnostic errors and improving patient outcomes across under-resourced healthcare settings on the continent.",
     author: "John Doe",
@@ -56,6 +58,13 @@ const blogs = [
 ];
 
 export default function BlogPage() {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [activePage, setActivePage] = useState(0);
+
+  const filteredBlogs = activeFilter === "All" 
+    ? blogs 
+    : blogs.filter(blog => blog.tag === activeFilter);
+
   return (
     <div className="flex flex-col min-h-screen bg-[#050505] text-white">
       <Navbar />
@@ -75,8 +84,9 @@ export default function BlogPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 * i }}
+              onClick={() => setActiveFilter(cat)}
               className={`px-6 py-2.5 rounded-full border text-sm font-medium transition-colors cursor-pointer ${
-                i === 0 
+                activeFilter === cat
                   ? 'border-zinc-700 bg-zinc-800/50 text-white' 
                   : 'border-zinc-800 bg-transparent text-zinc-400 hover:text-white hover:border-zinc-700'
               }`}
@@ -89,7 +99,7 @@ export default function BlogPage() {
         {/* Blog Grid */}
         <div className="max-w-[1400px] mx-auto px-6 mb-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((blog, i) => (
+            {filteredBlogs.map((blog, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -134,10 +144,12 @@ export default function BlogPage() {
         </div>
 
         {/* Progress Indicator */}
-        <div className="flex justify-center items-center gap-2 mb-24">
-          <div className="w-8 h-1.5 bg-white rounded-full"></div>
-          <div className="w-2 h-1.5 bg-zinc-700 rounded-full border border-zinc-600"></div>
-        </div>
+        <NavigationDots 
+          total={2} 
+          activeIndex={activePage} 
+          onChange={setActivePage} 
+          className="mb-24 mt-16" 
+        />
 
         {/* CTA Section */}
         <CTASection />

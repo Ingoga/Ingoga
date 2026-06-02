@@ -54,8 +54,8 @@ export default function Navbar() {
                         <h4 className="font-semibold text-white text-[18px] mb-8">What we do</h4>
                         <div className="flex flex-col gap-5">
                             <Link href="/products" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Products</Link>
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Blog</a>
-                            <a href="#" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Gallery</a>
+                            <Link href="/blog" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Blog</Link>
+                            <Link href="/gallery" className="text-white text-[15px] font-normal cursor-pointer hover:text-zinc-300 transition-colors">Our Gallery</Link>
                         </div>
                     </div>
                     <div className="flex flex-col">
