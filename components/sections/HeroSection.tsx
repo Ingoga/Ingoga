@@ -128,7 +128,7 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="w-full relative py-8 mt-48 border-y border-white/5 bg-[#080808]/40 backdrop-blur-sm z-10 overflow-hidden">
+      <div className="w-full relative py-8 mt-42 border-y border-white/5 bg-[#080808]/40 backdrop-blur-sm z-10 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-8">
           <p className="text-[16px] font-bold text-white text-center mb-12">
             Trusted by 3+ Companies

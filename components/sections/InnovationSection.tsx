@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
+  viewport: { once: false },
   transition: { duration: 0.8, ease: "easeOut" }
 };
 
@@ -16,7 +16,7 @@ export default function InnovationSection() {
         variants={fadeInUp}
         initial="initial"
         whileInView="whileInView"
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         className="flex-1 flex flex-col gap-6"
       >
         <h2 className="text-4xl md:text-[48px] font-bold text-white tracking-[-0.03em] mb-2">
@@ -42,144 +42,165 @@ export default function InnovationSection() {
 
       {/* Right Graphical Abstract element */}
       <div
-        className="flex-1 w-full max-w-[500px] flex flex-col gap-[22px] justify-center relative xl:translate-x-12 overflow-hidden"
+        className="flex-1 w-full max-w-[500px] flex flex-col gap-[28px] justify-center relative xl:translate-x-12 overflow-hidden py-4"
         style={{
-          WebkitMaskImage: 'linear-gradient(to right, black 65%, transparent 100%)',
-          maskImage: 'linear-gradient(to right, black 65%, transparent 100%)'
+          WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+          maskImage: 'linear-gradient(to right, black 60%, transparent 100%)'
         }}
       >
         {/* Pill 1 */}
         <div 
-          className="w-[120%] h-[56px] rounded-l-full flex items-center pl-7 ml-0"
+          className="w-[140%] h-[60px] rounded-full flex items-center px-8 relative"
           style={{
-            background: 'linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 6px 5px rgba(0, 0, 0, 0.03), 0 12px 30px rgba(0, 0, 0, 0.7)'
+            marginLeft: '0%',
+            background: 'linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 100%)',
+            boxShadow: 'inset 0 2px 2px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 15px 30px rgba(0,0,0,0.8)',
+            border: '1px solid rgba(0,0,0,1)'
           }}
         >
           <div 
-            className="w-[86%] h-[8px] rounded-full relative overflow-hidden"
+            className="w-full h-[8px] rounded-full relative"
             style={{
-              background: '#0a0a0a',
-              boxShadow: 'inset 0 1px 4px rgba(255, 255, 255, 0.1), inset 0 2px 6px rgba(0, 0, 0, 0.9)'
+              background: '#000000',
+              boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <div 
-              className="absolute left-0 h-full rounded-full"
+            <motion.div 
+              initial={{ width: "0%" }}
+              whileInView={{ width: "45%" }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="absolute h-full rounded-full"
               style={{
-                width: '60%',
-                background: 'linear-gradient(90deg, #ff3300 0%, #ff6b3d 50%, #ffb399 100%)',
-                boxShadow: '0 0 18px rgba(255, 51, 0, 0.9), 0 0 35px rgba(255, 51, 0, 0.5)'
+                left: '0',
+                background: '#B31B11',
+                boxShadow: '0 0 12px rgba(179, 27, 17, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
               }}
-            ></div>
+            ></motion.div>
           </div>
         </div>
 
         {/* Pill 2 */}
         <div 
-          className="w-[120%] h-[56px] rounded-l-full flex items-center pl-7 ml-[18%]"
+          className="w-[140%] h-[60px] rounded-full flex items-center px-8 relative"
           style={{
-            background: 'linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 6px 5px rgba(0, 0, 0, 0.03), 0 12px 30px rgba(0, 0, 0, 0.7)'
+            marginLeft: '20%',
+            background: 'linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 100%)',
+            boxShadow: 'inset 0 2px 2px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 15px 30px rgba(0,0,0,0.8)',
+            border: '1px solid rgba(0,0,0,1)'
           }}
         >
           <div 
-            className="w-[86%] h-[8px] rounded-full relative overflow-hidden"
+            className="w-full h-[8px] rounded-full relative"
             style={{
-              background: '#0a0a0a',
-              boxShadow: 'inset 0 1px 4px rgba(255, 255, 255, 0.1), inset 0 2px 6px rgba(0, 0, 0, 0.9)'
+              background: '#000000',
+              boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <div 
-              className="absolute right-0 h-full rounded-full"
+            <motion.div 
+              initial={{ width: "0%" }}
+              whileInView={{ width: "40%" }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.5, ease: "easeOut", delay: 0.1 }}
+              className="absolute h-full rounded-full"
               style={{
-                width: '50%',
-                background: 'linear-gradient(90deg, #cc2200 0%, #ff3300 30%, #ff6b3d 100%)',
-                boxShadow: '0 0 18px rgba(255, 51, 0, 0.9), 0 0 35px rgba(255, 51, 0, 0.5)'
+                background: '#381C1A',
+                boxShadow: 'inset 0 1px 1px rgba(0,0,0,0.5)'
               }}
-            ></div>
+            ></motion.div>
           </div>
         </div>
 
         {/* Pill 3 */}
         <div 
-          className="w-[120%] h-[56px] rounded-l-full flex items-center pl-7 ml-[35%]"
+          className="w-[140%] h-[60px] rounded-full flex items-center px-8 relative"
           style={{
-            background: 'linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 6px 5px rgba(0, 0, 0, 0.03), 0 12px 30px rgba(0, 0, 0, 0.7)'
+            marginLeft: '35%',
+            background: 'linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 100%)',
+            boxShadow: 'inset 0 2px 2px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 15px 30px rgba(0,0,0,0.8)',
+            border: '1px solid rgba(0,0,0,1)'
           }}
         >
           <div 
-            className="w-[86%] h-[8px] rounded-full relative overflow-hidden"
+            className="w-full h-[8px] rounded-full relative"
             style={{
-              background: '#0a0a0a',
-              boxShadow: 'inset 0 1px 4px rgba(255, 255, 255, 0.1), inset 0 2px 6px rgba(0, 0, 0, 0.9)'
+              background: '#000000',
+              boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <div 
-              className="absolute right-0 h-full rounded-full"
+            <motion.div 
+              initial={{ width: "0%" }}
+              whileInView={{ width: "50%" }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+              className="absolute h-full rounded-full"
               style={{
-                width: '42%',
-                background: 'linear-gradient(90deg, #cc3300 0%, #ff5522 50%, #ff9966 100%)',
-                boxShadow: '0 0 16px rgba(255, 85, 34, 0.8), 0 0 30px rgba(255, 85, 34, 0.4)'
+                background: '#B31B11',
+                boxShadow: '0 0 12px rgba(179, 27, 17, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
               }}
-            ></div>
+            ></motion.div>
           </div>
         </div>
 
         {/* Pill 4 */}
         <div 
-          className="w-[120%] h-[56px] rounded-l-full flex items-center pl-7 ml-[18%]"
+          className="w-[140%] h-[60px] rounded-full flex items-center px-8 relative"
           style={{
-            background: 'linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 6px 5px rgba(0, 0, 0, 0.03), 0 12px 30px rgba(0, 0, 0, 0.7)'
+            marginLeft: '20%',
+            background: 'linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 100%)',
+            boxShadow: 'inset 0 2px 2px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 15px 30px rgba(0,0,0,0.8)',
+            border: '1px solid rgba(0,0,0,1)'
           }}
         >
           <div 
-            className="w-[86%] h-[8px] rounded-full relative overflow-hidden"
+            className="w-full h-[8px] rounded-full relative"
             style={{
-              background: '#0a0a0a',
-              boxShadow: 'inset 0 1px 4px rgba(255, 255, 255, 0.1), inset 0 2px 6px rgba(0, 0, 0, 0.9)'
+              background: '#000000',
+              boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <div 
-              className="absolute left-[35%] h-full rounded-full"
+            <motion.div 
+              initial={{ width: "0%" }}
+              whileInView={{ width: "35%" }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+              className="absolute h-full rounded-full"
               style={{
-                width: '45%',
-                background: 'linear-gradient(90deg, #5a4040 0%, #4a3535 50%, #3a2828 100%)',
-                boxShadow: '0 0 8px rgba(90, 64, 64, 0.4)'
+                background: '#381C1A',
+                boxShadow: 'inset 0 1px 1px rgba(0,0,0,0.5)'
               }}
-            ></div>
+            ></motion.div>
           </div>
         </div>
 
         {/* Pill 5 */}
         <div 
-          className="w-[120%] h-[56px] rounded-l-full flex items-center pl-7 ml-0"
+          className="w-[140%] h-[60px] rounded-full flex items-center px-8 relative"
           style={{
-            background: 'linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 6px 5px rgba(0, 0, 0, 0.03), 0 12px 30px rgba(0, 0, 0, 0.7)'
+            marginLeft: '0%',
+            background: 'linear-gradient(180deg, #1f1f1f 0%, #0a0a0a 100%)',
+            boxShadow: 'inset 0 2px 2px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 15px 30px rgba(0,0,0,0.8)',
+            border: '1px solid rgba(0,0,0,1)'
           }}
         >
           <div 
-            className="w-[86%] h-[8px] rounded-full relative overflow-hidden"
+            className="w-full h-[8px] rounded-full relative"
             style={{
-              background: '#0a0a0a',
-              boxShadow: 'inset 0 1px 4px rgba(255, 255, 255, 0.1), inset 0 2px 6px rgba(0, 0, 0, 0.9)'
+              background: '#000000',
+              boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <div 
-              className="absolute left-[40%] h-full rounded-full"
+            <motion.div 
+              initial={{ width: "0%" }}
+              whileInView={{ width: "30%" }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
+              className="absolute h-full rounded-full"
               style={{
-                width: '48%',
-                background: 'linear-gradient(90deg, #5a4040 0%, #4a3535 50%, #3a2828 100%)',
-                boxShadow: '0 0 8px rgba(90, 64, 64, 0.4)'
+                background: '#381C1A',
+                boxShadow: 'inset 0 1px 1px rgba(0,0,0,0.5)'
               }}
-            ></div>
+            ></motion.div>
           </div>
         </div>
       </div>
