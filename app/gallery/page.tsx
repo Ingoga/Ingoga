@@ -38,7 +38,7 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative overflow-hidden rounded-lg aspect-3/4"
+                className="relative overflow-hidden rounded-md aspect-400/495"
               >
                 <img src="/Frame 1000011744.png" alt="Gallery Image 1" className="w-full h-full object-cover" />
               </motion.div>
@@ -48,7 +48,7 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="relative overflow-hidden rounded-lg aspect-video"
+                className="relative overflow-hidden rounded-md aspect-400/249"
               >
                 <img src="/Frame 1000011747.png" alt="Gallery Image 2" className="w-full h-full object-cover" />
               </motion.div>
@@ -61,7 +61,7 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative overflow-hidden rounded-lg aspect-17/9"
+                className="relative overflow-hidden rounded-md aspect-400/249"
               >
                 <img src="/Frame 1000011741.png" alt="Gallery Image 3" className="w-full h-full object-cover" />
               </motion.div>
@@ -71,9 +71,12 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="relative overflow-hidden rounded-xl aspect-3/4"
+                className="relative overflow-hidden rounded-md aspect-400/495 group cursor-pointer"
               >
                 <img src="/Frame 1000011743 (1).png" alt="Gallery Image 4" className="w-full h-full object-cover" />
+                <div className="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center pl-0.5 shadow-lg group-hover:scale-110 transition-transform">
+                  <Play className="w-4 h-4 text-black fill-black" />
+                </div>
               </motion.div>
             </div>
 
@@ -84,7 +87,7 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="relative overflow-hidden rounded-xl aspect-video"
+                className="relative overflow-hidden rounded-md aspect-400/240"
               >
                 <img src="/Frame 1000011742.png" alt="Gallery Image 5" className="w-full h-full object-cover" />
               </motion.div>
@@ -94,7 +97,7 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="relative overflow-hidden rounded-xl aspect-video group cursor-pointer"
+                className="relative overflow-hidden rounded-md aspect-400/240 group cursor-pointer"
               >
                 <img src="/Frame 1000011745 (1).png" alt="Gallery Image 6" className="w-full h-full object-cover" />
                 <div className="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center pl-0.5 shadow-lg group-hover:scale-110 transition-transform">
@@ -107,12 +110,9 @@ export default function GalleryPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="relative overflow-hidden rounded-xl aspect-4/3 group cursor-pointer"
+                className="relative overflow-hidden rounded-md aspect-400/240 group cursor-pointer"
               >
                 <img src="/Frame 1000011746.png  " alt="Gallery Image 7" className="w-full h-full object-cover" />
-                <div className="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center pl-0.5 shadow-lg group-hover:scale-110 transition-transform">
-                  <Play className="w-4 h-4 text-black fill-black" />
-                </div>
               </motion.div>
             </div>
 
