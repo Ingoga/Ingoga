@@ -65,7 +65,7 @@ export default function HeroSection() {
           className="flex items-center justify-center relative mx-auto"
           style={{ height: '60px', width: '360px', maxWidth: '100%' }}
         >
-          <p className="text-[14px] md:text-[16px] font-medium text-foreground/80 tracking-wide">Built In rwanda - Transforming Africa</p>
+          <p className="text-[14px] md:text-[16px] font-medium text-foreground/80 tracking-wide">Built In Rwanda - Transforming Africa</p>
         </motion.div>
 
         <motion.div
