@@ -1,13 +1,29 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #000000;
+  --background: #f8fafc;
+  --foreground: #020617;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --glass-hover-bg: rgba(248, 250, 252, 0.9);
+}
+
+.dark {
+  --background: #050505;
   --foreground: #ededed;
+  --card-bg: rgba(8, 8, 8, 0.7);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --glass-hover-bg: rgba(12, 12, 12, 0.8);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-glass-hover-bg: var(--glass-hover-bg);
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 
   --color-ruby-50: #fff1f2;
@@ -30,18 +46,17 @@
 }
 
 .glass-card {
-  background: rgba(8, 8, 8, 0.7);
+  background: var(--card-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--card-border);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .glass-card-hover:hover {
-  background: rgba(12, 12, 12, 0.8);
+  background: var(--glass-hover-bg);
   border-color: rgba(244, 63, 94, 0.3);
   box-shadow: 0 0 20px rgba(244, 63, 94, 0.1);
 }
-
 
 @keyframes torch-flicker {
   0% { opacity: 1; }
@@ -68,7 +83,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-background-clip: text;
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: var(--foreground) !important;
   transition: background-color 5000s ease-in-out 0s;
   box-shadow: inset 0 0 20px 20px rgba(24, 24, 27, 0.5) !important;
   background-color: transparent !important;
@@ -79,7 +94,7 @@ textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 textarea:-webkit-autofill:active {
   -webkit-background-clip: text;
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: var(--foreground) !important;
   transition: background-color 5000s ease-in-out 0s;
   box-shadow: inset 0 0 20px 20px rgba(24, 24, 27, 0.5) !important;
   background-color: rgba(24, 24, 27, 0.5) !important;
@@ -87,6 +102,6 @@ textarea:-webkit-autofill:active {
 
 input::placeholder,
 textarea::placeholder {
-  color: rgb(82, 82, 91) !important;
+  color: rgb(113, 113, 122) !important;
   opacity: 1;
 }

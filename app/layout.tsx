@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "../components/theme-provider";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -23,11 +24,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} h-full antialiased dark`}
+      className={`${outfit.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans bg-black text-white relative">
-        <div className="grain-overlay" />
-        {children}
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground relative transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="grain-overlay" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

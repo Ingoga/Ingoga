@@ -56,7 +56,7 @@ export default function ProductsPage() {
   const [activeProject, setActiveProject] = useState(0);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#050505] text-white overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1 w-full">
@@ -104,14 +104,14 @@ export default function ProductsPage() {
           </div>
 
           {/* Bottom Section - Image and Project Details */}
-          <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-0 border border-zinc-800 rounded-xl overflow-hidden h-[500px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-0 border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden min-h-[500px] shadow-2xl shadow-black/5 dark:shadow-white/5">
             {/* Left - Project Image */}
             <motion.div
               key={`image-${activeProject}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="relative bg-white flex items-center justify-center h-full"
+              className="relative bg-white dark:bg-white/5 flex items-center justify-center h-full border-r border-black/5 dark:border-white/5"
             >
               <img 
                 src={projects[activeProject].image} 
@@ -126,41 +126,43 @@ export default function ProductsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-black p-12 flex flex-col justify-center space-y-7 h-full"
+              className="bg-white dark:bg-[#0a0a0a] p-12 flex flex-col justify-center space-y-8 h-full"
             >
               {/* Project Name */}
               <div>
-                <h3 className="text-[2.75rem] font-bold mb-2 leading-tight">
+                <h3 className="text-[2.75rem] font-bold mb-2 leading-tight text-foreground">
                   {projects[activeProject].name}
                 </h3>
-                <p className="text-white/60 text-md">
+                <p className="text-foreground/60 text-md font-medium tracking-wide">
                   {projects[activeProject].company}
                 </p>
               </div>
 
               {/* Project Description */}
-              <p className="text-zinc-400 text-[15px] leading-relaxed">
+              <p className="text-foreground/80 text-[15px] leading-relaxed">
                 {projects[activeProject].description}
               </p>
 
               {/* Features List */}
-              <div className="space-y-3.5">
+              <div className="space-y-4">
                 {projects[activeProject].features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white shrink-0"
-                    >
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    <span className="text-zinc-300 text-[14.5px]">{feature}</span>
+                  <div key={index} className="flex items-center gap-4">
+                    <div className="w-6 h-6 rounded-full bg-red-500/10 dark:bg-red-500/20 flex items-center justify-center shrink-0">
+                      <svg 
+                        width="12" 
+                        height="12" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-red-600 dark:text-red-500"
+                      >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span className="text-foreground/80 text-[14.5px] font-medium">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -170,10 +172,10 @@ export default function ProductsPage() {
                 href={projects[activeProject].link}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-transparent border border-zinc-800 rounded-md text-white text-[13px] hover:border-zinc-600 transition-colors w-fit"
+                className="inline-flex items-center gap-2 px-6 py-3 mt-4 bg-transparent border border-black/10 dark:border-white/10 rounded-md text-foreground text-[14px] font-bold hover:border-red-500/50 hover:shadow-[0_0_15px_rgba(230,37,5,0.15)] transition-all duration-300 w-fit"
               >
                 Visit {projects[activeProject].name}
-                <span>→</span>
+                <span className="text-black text-lg leading-none">→</span>
               </motion.a>
             </motion.div>
           </div>

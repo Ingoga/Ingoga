@@ -51,7 +51,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#050505] text-white overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1 w-full">

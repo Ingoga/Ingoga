@@ -82,8 +82,8 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-32 w-full relative overflow-hidden bg-[#050505]">
-      <div className="max-w-8xl mx-auto px-6 lg:px-20">
+    <section className="py-24 md:py-32 w-full relative overflow-hidden bg-background transition-colors duration-300">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-20">
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
           
@@ -95,10 +95,10 @@ export default function FAQSection() {
             viewport={{ once: true }}
             className="lg:sticky lg:top-32 lg:self-start"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Everything You Need to know,<br></br> All in One Place
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 tracking-tight">
+              Everything You Need to know,<br className="hidden lg:block"></br> All in One Place
             </h2>
-            <p className="text-zinc-400 text-lg leading-relaxed">
+            <p className="text-foreground/70 text-base md:text-lg leading-relaxed">
               Discover quick and comprehensive answers to common questions about our platform, services, and features
             </p>
           </motion.div>
@@ -115,15 +115,15 @@ export default function FAQSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="border-b border-zinc-800/50"
+                  className="border-b border-black/10 dark:border-white/10"
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full text-left py-6 flex items-center justify-between gap-6 group"
+                    className="w-full text-left py-6 flex items-center justify-between gap-6 group cursor-pointer"
                   >
                     <span className={`
-                      text-lg md:text-xl font-medium transition-colors duration-300
-                      ${isOpen ? 'text-white' : 'text-zinc-300 group-hover:text-white'}
+                      text-base md:text-lg lg:text-xl font-medium transition-colors duration-300
+                      ${isOpen ? 'text-foreground' : 'text-foreground/80 group-hover:text-foreground'}
                     `}>
                       {faq.q}
                     </span>
@@ -133,7 +133,7 @@ export default function FAQSection() {
                       <motion.span
                         animate={{ rotate: isOpen ? 90 : 0 }}
                         transition={{ duration: 0.3 }}
-                        className="cursor-pointer absolute inset-0 flex items-center justify-center"
+                        className="absolute inset-0 flex items-center justify-center"
                       >
                         <svg 
                           width="24" 
@@ -144,7 +144,7 @@ export default function FAQSection() {
                           strokeWidth="2" 
                           strokeLinecap="round" 
                           strokeLinejoin="round"
-                          className={isOpen ? 'text-red-500' : 'text-zinc-500 group-hover:text-zinc-300'}
+                          className={isOpen ? 'text-red-500' : 'text-foreground/50 group-hover:text-foreground/80'}
                         >
                           <line x1="12" y1="5" x2="12" y2="19"></line>
                           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -163,8 +163,8 @@ export default function FAQSection() {
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="pb-6 pr-12">
-                          <p className="text-zinc-500 text-base md:text-lg leading-relaxed">
+                        <div className="pb-6 pr-4 md:pr-12">
+                          <p className="text-foreground/60 text-sm md:text-base lg:text-lg leading-relaxed">
                             <TypewriterText text={faq.a} isActive={isOpen} />
                           </p>
                         </div>

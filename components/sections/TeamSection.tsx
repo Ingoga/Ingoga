@@ -22,19 +22,19 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <section className="py-20 px-8 md:px-16 max-w-[1400px] mx-auto">
-      <div className="flex justify-between items-center mb-12">
+    <section className="py-16 md:py-20 px-6 md:px-8 lg:px-16 max-w-[1400px] mx-auto transition-colors duration-300">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 md:mb-12 gap-6">
         <motion.h2
           variants={fadeInUp}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-white"
+          className="text-3xl md:text-4xl font-bold text-foreground"
         >Meet Our team</motion.h2>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-md border border-zinc-700 hover:bg-zinc-900 text-[14px] font-medium transition text-white"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-md border border-black/20 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 text-[14px] font-medium transition text-foreground"
         >
           Meet the entire team <span className="text-xs -rotate-45">→</span>
         </motion.button>
@@ -45,14 +45,14 @@ export default function TeamSection() {
         initial="initial"
         whileInView="whileInView"
         viewport={{ once: true }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
       >
         {teamMembers.map((member, i) => (
           <motion.div
             key={i}
             variants={fadeInUp}
             whileHover={{ y: -5 }}
-            className="cursor-pointer group relative rounded-xl overflow-hidden bg-[#0a0a0a]" 
+            className="cursor-pointer group relative rounded-xl overflow-hidden bg-black/5 dark:bg-[#0a0a0a]" 
             style={{ aspectRatio: '3/4' }}
           >
             <img
@@ -63,13 +63,13 @@ export default function TeamSection() {
             <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/20"></div>
 
             {/* Glass Info Card */}
-            <div className="absolute inset-x-2 bottom-2 p-4 h-48 rounded-xl bg-transparent border border-white/10 flex flex-col justify-end">
+            <div className="absolute inset-x-2 bottom-2 p-4 h-48 rounded-xl bg-transparent border border-white/20 flex flex-col justify-end backdrop-blur-[2px]">
               <p className="text-white font-medium text-sm md:text-lg leading-tight mb-6">
                 {member.text}
               </p>
               <div className="space-y-1 mb-3">
                 <p className="text-white font-semibold text-[16px] md:text-[18px]">{member.name}</p>
-                <p className="text-gray-400 text-[13px] md:text-[14px]">{member.role}</p>
+                <p className="text-gray-300 text-[13px] md:text-[14px]">{member.role}</p>
               </div>
 
               {/* Social Icons */}
