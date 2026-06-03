@@ -27,8 +27,6 @@ export default function GalleryPage() {
           title="Inside Ingoga Technologies"
           description="The people, places, and moments behind Africa's next generation of intelligent systems."
         />
-
-        {/* Explicit 3-Column Image Gallery */}
         <div className="max-w-[1400px] mx-auto px-6 mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Column 1 */}
