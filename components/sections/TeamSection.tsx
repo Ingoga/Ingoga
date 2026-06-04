@@ -52,7 +52,7 @@ export default function TeamSection() {
             key={i}
             variants={fadeInUp}
             whileHover={{ y: -5 }}
-            className="cursor-pointer group relative rounded-xl overflow-hidden bg-black/5 dark:bg-[#0a0a0a]" 
+            className="cursor-pointer group relative rounded-xl overflow-hidden bg-black/5 dark:bg-[#0a0a0a]"
             style={{ aspectRatio: '3/4' }}
           >
             <img
