@@ -61,8 +61,8 @@ export default function BlogPage() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activePage, setActivePage] = useState(0);
 
-  const filteredBlogs = activeFilter === "All" 
-    ? blogs 
+  const filteredBlogs = activeFilter === "All"
+    ? blogs
     : blogs.filter(blog => blog.tag === activeFilter);
 
   return (
@@ -71,7 +71,7 @@ export default function BlogPage() {
 
       <main className="flex-1 w-full">
         {/* Hero Section */}
-        <HeroWithScroll 
+        <HeroWithScroll
           title="Insights, Ideas & Innovation"
           description="Thinking from our team on AI, digital health, emergency technology, and building deep tech in Africa."
         />
@@ -85,11 +85,10 @@ export default function BlogPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 * i }}
               onClick={() => setActiveFilter(cat)}
-              className={`px-6 py-2.5 rounded-full border text-sm font-medium transition-colors cursor-pointer ${
-                activeFilter === cat
-                  ? 'border-zinc-700 bg-zinc-800/50 text-white' 
+              className={`px-6 py-2.5 rounded-full border text-sm font-medium transition-colors cursor-pointer ${activeFilter === cat
+                  ? 'border-zinc-700 bg-zinc-800/50 text-white'
                   : 'border-zinc-800 bg-transparent text-zinc-400 hover:text-white hover:border-zinc-700'
-              }`}
+                }`}
             >
               {cat}
             </motion.button>
@@ -113,7 +112,7 @@ export default function BlogPage() {
                       <img
                         src={blog.image}
                         alt={blog.title}
-                        className="w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 transition duration-700"
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
                       />
                     </div>
                     <div className="p-8 space-y-6 flex-1 flex flex-col">
@@ -144,11 +143,11 @@ export default function BlogPage() {
         </div>
 
         {/* Progress Indicator */}
-        <NavigationDots 
-          total={2} 
-          activeIndex={activePage} 
-          onChange={setActivePage} 
-          className="mb-24 mt-16" 
+        <NavigationDots
+          total={2}
+          activeIndex={activePage}
+          onChange={setActivePage}
+          className="mb-24 mt-16"
         />
 
         {/* CTA Section */}

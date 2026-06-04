@@ -1,5 +1,6 @@
 "use client"
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -18,19 +19,22 @@ const products = [
     title: "UBUZIMA DIGITAL SYSTEM",
     desc: "A modern digital health platform focused on clinical workflows, decision support, and intelligent care delivery. Built for real-world complexity, designed for clinicians who need clarity and precision.",
     tag: "Visit UDS →",
-    img: "/UDS.jpg"
+    img: "/UDS.jpg",
+    slug: "/blog/uds"
   },
   {
     title: "NEXUN INC.",
     desc: "Advanced AI systems, medical automation, and emerging research in intelligence, energy, and next-generation computation. NEXUN Inc. builds the future layer by layer.",
     tag: "Visit NEXUN →",
-    img: "/NEXUN.jpg"
+    img: "/NEXUN.jpg",
+    slug: "/blog/nexun"
   },
   {
     title: "RESAS",
     desc: "A high-precision safety and response platform combining sensors, real-time software, and intelligent automation. Built for speed and accuracy — every second counts when lives are on the line.",
     tag: "Visit RESAS →",
-    img: "/RESAS.png"
+    img: "/RESAS.png",
+    slug: "/blog/resas"
   }
 ];
 
@@ -82,9 +86,12 @@ export default function ProductsSection() {
                 <p className="text-foreground/70 text-sm leading-relaxed">{product.desc}</p>
               </div>
             </div>
-            <a href="#" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-black/20 dark:border-white/20 text-foreground text-[13px] font-medium hover:bg-black/10 dark:hover:bg-white/10 transition w-fit mt-4 md:mt-0">
+            <Link
+              href={product.slug}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-black/20 dark:border-white/20 text-foreground text-[13px] font-medium hover:bg-black/10 dark:hover:bg-white/10 transition w-fit mt-4 md:mt-0"
+            >
               {product.tag}
-            </a>
+            </Link>
           </motion.div>
         ))}
       </motion.div>
