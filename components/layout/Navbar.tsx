@@ -56,25 +56,25 @@ export default function Navbar() {
                     <div className="flex flex-col">
                         <h4 className="font-semibold text-foreground text-[16px] md:text-[18px] mb-6 md:mb-8">Explore</h4>
                         <div className="flex flex-col gap-4 md:gap-5">
-                            <Link href="/" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Home</Link>
-                            <Link href="/about" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">About us</Link>
-                            <a href="#" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Why us</a>
+                            <Link href="/" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Home</Link>
+                            <Link href="/about" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">About us</Link>
+                            <a href="#" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Why us</a>
                         </div>
                     </div>
                     <div className="flex flex-col">
                         <h4 className="font-semibold text-foreground text-[16px] md:text-[18px] mb-6 md:mb-8">What we do</h4>
                         <div className="flex flex-col gap-4 md:gap-5">
-                            <Link href="/products" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Our Products</Link>
-                            <Link href="/blog" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Our Blog</Link>
-                            <Link href="/gallery" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Our Gallery</Link>
+                            <Link href="/products" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Our Products</Link>
+                            <Link href="/blog" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Our Blog</Link>
+                            <Link href="/gallery" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Our Gallery</Link>
                         </div>
                     </div>
                     <div className="flex flex-col">
                         <h4 className="font-semibold text-foreground text-[16px] md:text-[18px] mb-6 md:mb-8">Contact us</h4>
                         <div className="flex flex-col gap-4 md:gap-5">
-                            <Link href="/contact" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Start a project</Link>
-                            <Link href="/contact" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Email us</Link>
-                            <Link href="/contact" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-white transition-colors">Book a call</Link>
+                            <Link href="/contact" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Start a project</Link>
+                            <Link href="/contact" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Email us</Link>
+                            <Link href="/contact" className="text-foreground/80 text-[14px] md:text-[15px] font-normal cursor-pointer hover:text-foreground transition-colors">Book a call</Link>
                         </div>
                     </div>
                 </div>

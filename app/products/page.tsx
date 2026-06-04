@@ -105,22 +105,20 @@ export default function ProductsPage() {
 
           {/* Bottom Section - Image and Project Details */}
           <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-0 border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden min-h-[500px] shadow-2xl shadow-black/5 dark:shadow-white/5">
-            {/* Left - Project Image */}
             <motion.div
               key={`image-${activeProject}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="relative bg-white dark:bg-white/5 flex items-center justify-center h-full border-r border-black/5 dark:border-white/5"
+              className="relative bg-white flex items-center justify-center h-full border-r border-black/5 dark:border-white/5"
             >
               <img 
                 src={projects[activeProject].image} 
                 alt={projects[activeProject].name}
-                className="w-full h-full object-contain p-16"
+                className="w-full h-full object-contain p-8"
               />
             </motion.div>
 
-            {/* Right - Project Details */}
             <motion.div
               key={`details-${activeProject}`}
               initial={{ opacity: 0, y: 20 }}
@@ -175,7 +173,7 @@ export default function ProductsPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 mt-4 bg-transparent border border-black/10 dark:border-white/10 rounded-md text-foreground text-[14px] font-bold hover:border-red-500/50 hover:shadow-[0_0_15px_rgba(230,37,5,0.15)] transition-all duration-300 w-fit"
               >
                 Visit {projects[activeProject].name}
-                <span className="text-black text-lg leading-none">→</span>
+                <span className="text-foreground text-lg leading-none">→</span>
               </motion.a>
             </motion.div>
           </div>

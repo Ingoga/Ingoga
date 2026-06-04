@@ -98,7 +98,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="absolute w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 z-10 top-[400px] md:top-[440px]"
+          className="absolute w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 z-10 top-[380px] md:top-[420px]"
         >
           <motion.button
             whileHover={{ scale: 1.05, filter: "brightness(1.2)" }}
@@ -117,7 +117,7 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="w-full relative py-8 mt-56 sm:mt-42 border-y border-black/5 dark:border-white/5 bg-black/5 dark:bg-[#080808]/40 backdrop-blur-sm z-10 overflow-hidden">
+      <div className="w-full relative py-8 mt-24 sm:mt-36 border-y border-black/5 dark:border-white/5 bg-black/5 dark:bg-[#080808]/40 backdrop-blur-sm z-10 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
           <p className="text-[14px] md:text-[16px] font-bold text-foreground text-center mb-8 md:mb-12">
             Trusted by 3+ Companies
