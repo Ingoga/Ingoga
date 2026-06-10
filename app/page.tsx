@@ -12,6 +12,10 @@ import {
   CTASection
 } from "../components/sections";
 
+
+
+
+
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground overflow-hidden selection:bg-red-500/30 transition-colors duration-300">

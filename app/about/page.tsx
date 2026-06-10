@@ -1,11 +1,13 @@
 "use client"
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import TeamSection from "../../components/sections/TeamSection";
 import CTASection from "../../components/sections/CTASection";
 import HeroWithScroll from "../../components/sections/HeroWithScroll";
+import { api } from "../../lib/api";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -14,12 +16,42 @@ const fadeInUp = {
   transition: { duration: 0.8, ease: "easeOut" }
 };
 
-const stats = [
-  { value: 100, suffix: "+", label: "Active Projects" },
-  { value: 100, suffix: "+", label: "Clients Served" },
-  { value: 50, suffix: "+", label: "Team members" },
-  { value: 1, suffix: "st", label: "Pan-African Group" }
-];
+interface IngogaFields {
+  whoWeAre: string;
+  mission: string;
+  vision: string;
+  coreValues: string;
+}
+
+function parseIngogaContent(content?: string): IngogaFields {
+  if (!content) {
+    return { whoWeAre: "", mission: "", vision: "", coreValues: "" };
+  }
+  try {
+    const parsed = JSON.parse(content);
+    if (parsed && typeof parsed === "object" && "mission" in parsed) {
+      return {
+        whoWeAre: parsed.whoWeAre || "",
+        mission: parsed.mission || "",
+        vision: parsed.vision || "",
+        coreValues: parsed.coreValues || "",
+      };
+    }
+  } catch {
+    // fall through
+  }
+  return {
+    whoWeAre: content,
+    mission: "",
+    vision: "",
+    coreValues: "",
+  };
+}
+
+function parseParagraphs(content?: string): string[] {
+  if (!content) return [];
+  return content.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
+}
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -50,24 +82,48 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function AboutPage() {
+  const { data: hero } = useQuery({
+    queryKey: ["about", "hero"],
+    queryFn: () => api.about.hero(),
+  });
+
+  const { data: whoWeAre } = useQuery({
+    queryKey: ["about", "who-we-are"],
+    queryFn: () => api.about.whoWeAre(),
+  });
+
+  const { data: ingoga } = useQuery({
+    queryKey: ["about", "ingoga"],
+    queryFn: () => api.about.ingoga(),
+  });
+
+  const stats = useMemo(() => {
+    if (!ingoga?.stats?.length) return [];
+    return ingoga.stats.map((stat) => ({
+      value: stat.value,
+      suffix: stat.suffix,
+      label: stat.label,
+    }));
+  }, [ingoga]);
+
+  const whoWeAreParagraphs = useMemo(
+    () => parseParagraphs(whoWeAre?.content),
+    [whoWeAre],
+  );
+
+  const ingogaFields = useMemo(
+    () => parseIngogaContent(ingoga?.content),
+    [ingoga],
+  );
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1 w-full">
         <HeroWithScroll
-          title={
-            <>
-              We Redefine What Emerging<br />Nations Can Build
-            </>
-          }
-          description={
-            <>
-              Ingoga Technologies Group is a pioneering deep-tech company<br className="hidden md:block" />
-              headquartered in Kigali, Rwanda — engineering intelligent systems for<br className="hidden md:block" />
-              healthcare, safety, and infrastructure.
-            </>
-          }
+          title={hero?.heading || ""}
+          description={hero?.content || ""}
         />
 
         {/* Hey Section with Rectangle 10 Image */}
@@ -99,23 +155,19 @@ export default function AboutPage() {
               className="space-y-4 order-1 lg:order-2"
             >
               <div>
-                <h3 className="text-3xl font-semibold text-white mb-2">Hey!</h3>
+                {whoWeAre?.subheading && (
+                  <h3 className="text-3xl font-semibold text-white mb-2">{whoWeAre.subheading}</h3>
+                )}
                 <h2 className="text-3xl md:text-4xl font-semibold mb-6">
-                  We are Ingoga Technologies
+                  {whoWeAre?.heading || ""}
                 </h2>
               </div>
 
-              <p className="text-zinc-400 text-base leading-relaxed">
-                Ingoga Technologies Group is an African deep-tech company building intelligent systems that solve real-world problems. We specialize in developing cutting-edge digital health platforms, AI-powered emergency response systems, and intelligent infrastructure solutions.
-              </p>
-
-              <p className="text-zinc-400 text-base leading-relaxed">
-                Founded in Rwanda, we're on a mission to prove that world-class technology can be built in Africa, for Africa — and eventually, for the world. Our platforms are designed to work in resource-constrained environments while delivering enterprise-grade performance and reliability.
-              </p>
-
-              <p className="text-zinc-400 text-base leading-relaxed">
-                We integrate with AI tools, frameworks and the best of our core business, growing at a rapid pace. We're backed by leading investors and supported by a team of world-class engineers, designers, and domain experts.
-              </p>
+              {whoWeAreParagraphs.map((paragraph, index) => (
+                <p key={index} className="text-zinc-400 text-base leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
 
               <motion.button
                 whileHover={{ scale: 1.01 }}
@@ -182,7 +234,7 @@ export default function AboutPage() {
                 </div>
                 
                 <p className="text-zinc-300 text-sm md:text-base leading-relaxed">
-                  Ingoga Technologies Group is a deep-tech company developing intelligent systems for healthcare, safety, energy, and digital infrastructure.
+                  {ingogaFields.whoWeAre}
                 </p>
               </motion.div>
 
@@ -200,7 +252,7 @@ export default function AboutPage() {
                 </div>
 
                 <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
-                  Ingoga Technologies Group has core values and those are innovation, excellence, integrity, and pure impact in both africa and Rwanda
+                  {ingogaFields.coreValues}
                 </p>
               </motion.div>
             </div>
@@ -239,7 +291,7 @@ export default function AboutPage() {
                 </div>
 
                 <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
-                  To engineer advanced AI ecosystems, emergency automation technologies, and digital platforms that transform organizations and improve lives across Africa and beyond.
+                  {ingogaFields.mission}
                 </p>
               </motion.div>
 
@@ -257,7 +309,7 @@ export default function AboutPage() {
                 </div>
 
                 <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
-                  To be the leading Pan-African deep tech powerhouse that redefines global innovation through breakthrough technologies for the world.
+                  {ingogaFields.vision}
                 </p>
               </motion.div>
             </div>
@@ -265,7 +317,7 @@ export default function AboutPage() {
         </section>
 
         {/* Team Section - Using existing component */}
-        <TeamSection />
+        <TeamSection scope="all" />
 
         {/* CTA Section - Using existing component */}
         <CTASection />

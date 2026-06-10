@@ -1,11 +1,60 @@
 "use client"
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import HeroWithScroll from "../../components/sections/HeroWithScroll";
 import CTASection from "../../components/sections/CTASection";
+import { api } from "../../lib/api";
 
 export default function ContactPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [role, setRole] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const { data: hero } = useQuery({
+    queryKey: ["contact", "hero"],
+    queryFn: () => api.contact.hero(),
+  });
+
+  const { data: details } = useQuery({
+    queryKey: ["contact", "details"],
+    queryFn: () => api.contact.details(),
+  });
+
+  const contactEmail = details?.email || "";
+  const contactPhone = details?.contacts || "";
+  const contactLocation = details?.location || "";
+  const instagramUrl = details?.instagramUrl || "#";
+  const linkedInUrl = details?.facebookUrl || "#";
+  const twitterUrl = details?.twitterUrl || "#";
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !email.trim() || submitting) return;
+
+    const parts: string[] = [];
+    if (organization.trim()) parts.push(`Organization: ${organization.trim()}`);
+    if (role.trim()) parts.push(`Role: ${role.trim()}`);
+    if (message.trim()) parts.push(message.trim());
+    const fullMessage = parts.join("\n\n") || "Contact form submission";
+
+    setSubmitting(true);
+    try {
+      await api.contact.submit({ name: name.trim(), email: email.trim(), message: fullMessage });
+      setName("");
+      setEmail("");
+      setOrganization("");
+      setRole("");
+      setMessage("");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
       <Navbar />
@@ -14,15 +63,10 @@ export default function ContactPage() {
         <HeroWithScroll
           title={
             <>
-              Let's Build the Future Together
+              {hero?.heading || ""}
             </>
           }
-          description={
-            <>
-              Partner with us to deploy intelligent systems for healthcare,<br className="hidden md:block" />
-              safety, and infrastructure across Africa.
-            </>
-          }
+          description={hero?.content || ""}
         />
 
         {/* Contact Form Section */}
@@ -37,12 +81,10 @@ export default function ContactPage() {
             >
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                  Let's Get In Touch
+                  {details?.heading || ""}
                 </h2>
                 <p className="text-foreground/70 text-base leading-relaxed">
-                  Let's get in touch! Whether you're ready to start a project,<br />
-                  have a question, or just want to connect, drop me a message<br />
-                  below and I'll get back to you soon.
+                  {details?.content || ""}
                 </p>
               </div>
 
@@ -56,8 +98,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-foreground/60">Email</p>
-                    <a href="mailto:hello@ingogatechnologies.group" className="text-foreground font-medium hover:text-foreground/80 transition-colors">
-                      hello@ingogatechnologies.group
+                    <a href={`mailto:${contactEmail}`} className="text-foreground font-medium hover:text-foreground/80 transition-colors">
+                      {contactEmail}
                     </a>
                   </div>
                 </div>
@@ -70,8 +112,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-foreground/60">Phone</p>
-                    <a href="tel:+250788520065" className="text-foreground font-medium hover:text-foreground/80 transition-colors">
-                      +250 788520065
+                    <a href={`tel:${contactPhone.replace(/\s/g, "")}`} className="text-foreground font-medium hover:text-foreground/80 transition-colors">
+                      {contactPhone}
                     </a>
                   </div>
                 </div>
@@ -85,7 +127,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-foreground/60">Location</p>
-                    <p className="text-foreground font-medium">Kigali, Rwanda</p>
+                    <p className="text-foreground font-medium">{contactLocation}</p>
                   </div>
                 </div>
               </div>
@@ -94,7 +136,7 @@ export default function ContactPage() {
                 <p className="text-sm text-foreground/60 mb-4">Follow us on</p>
                 <div className="flex gap-4">
                   <a 
-                    href="#" 
+                    href={instagramUrl} 
                     className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-foreground hover:bg-black/10 dark:hover:bg-white/20 transition-colors"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -102,7 +144,7 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a 
-                    href="#" 
+                    href={linkedInUrl} 
                     className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-foreground hover:bg-black/10 dark:hover:bg-white/20 transition-colors"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -110,7 +152,7 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a 
-                    href="#" 
+                    href={twitterUrl} 
                     className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-foreground hover:bg-black/10 dark:hover:bg-white/20 transition-colors"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -134,6 +176,8 @@ export default function ContactPage() {
                   <input
                     type="text"
                     placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-300"
                   />
                 </div>
@@ -142,6 +186,8 @@ export default function ContactPage() {
                   <input
                     type="email"
                     placeholder="johndoe@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-300"
                   />
                 </div>
@@ -153,6 +199,8 @@ export default function ContactPage() {
                   <input
                     type="text"
                     placeholder="Company/organization"
+                    value={organization}
+                    onChange={(e) => setOrganization(e.target.value)}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-300"
                   />
                 </div>
@@ -161,6 +209,8 @@ export default function ContactPage() {
                   <input
                     type="text"
                     placeholder="Your role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-300"
                   />
                 </div>
@@ -171,6 +221,8 @@ export default function ContactPage() {
                 <textarea
                   rows={6}
                   placeholder="Tell us about your project or how you want to collaborate"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all duration-300 resize-none"
                 />
               </div>
@@ -178,6 +230,8 @@ export default function ContactPage() {
               <motion.button
                 whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
                 whileTap={{ scale: 0.98 }}
+                onClick={handleSubmit}
+                disabled={submitting}
                 className="cursor-pointer w-full md:w-auto px-8 py-4 rounded-full font-medium text-[16px] tracking-wide relative overflow-hidden transition-all duration-300 shadow-[inset_0_0_15px_1px_rgba(230,37,5,0.4)] border-3 border-red-500/50 bg-background text-foreground"
               >
                 Send message

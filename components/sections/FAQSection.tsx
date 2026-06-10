@@ -1,6 +1,9 @@
 "use client"
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../lib/api";
+import { DEFAULT_FAQS } from "../../lib/defaults";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -8,33 +11,6 @@ const fadeInUp = {
   viewport: { once: true },
   transition: { duration: 0.8, ease: "easeOut" }
 };
-
-const faqs = [
-  { 
-    q: "What stage is Ingoga Technologies at?", 
-    a: "Ingoga Technologies is currently in the growth stage, with multiple operational products including UDS, NEXUN, and RESAS. We're actively scaling our platforms across African markets while continuing to innovate and expand our technology stack."
-  },
-  { 
-    q: "What markets are you targeting?", 
-    a: "We primarily target African healthcare systems, government institutions, and emergency response organizations. Our focus is on Rwanda, East Africa, and expanding across the continent to provide intelligent systems that address critical infrastructure challenges."
-  },
-  { 
-    q: "What is the revenue model?", 
-    a: "Our revenue model combines SaaS subscriptions for our digital health platforms, enterprise licensing for AI systems, and custom implementation services. We offer tiered pricing based on organization size and feature requirements, with dedicated support packages."
-  },
-  { 
-    q: "Are you currently raising funding?", 
-    a: "Yes, we are actively seeking strategic partnerships and investment to accelerate our expansion across Africa. We're looking for investors who share our vision of building world-class technology solutions for African challenges."
-  },
-  { 
-    q: "Do you work with NGOs or non-profit organizations?", 
-    a: "Absolutely. We have special partnership programs for NGOs and non-profit organizations working in healthcare, emergency response, and digital infrastructure. We offer flexible pricing and dedicated support to maximize social impact."
-  },
-  { 
-    q: "How do I get in touch with your team?", 
-    a: "You can reach us through our contact page, email us directly at hello@ingoga.tech, or schedule a call through our 'Partner with us' button. Our team typically responds within 24 hours to all inquiries."
-  },
-];
 
 // Typewriter component with proper effect
 function TypewriterText({ text, isActive }: { text: string; isActive: boolean }) {
@@ -46,13 +22,12 @@ function TypewriterText({ text, isActive }: { text: string; isActive: boolean })
       const timeout = setTimeout(() => {
         setDisplayedText(text.slice(0, currentIndex + 1));
         setCurrentIndex(currentIndex + 1);
-      }, 15); // Speed of typing
+      }, 15);
       
       return () => clearTimeout(timeout);
     }
   }, [isActive, currentIndex, text]);
 
-  // Reset when closed
   useEffect(() => {
     if (!isActive) {
       setDisplayedText("");
@@ -77,6 +52,18 @@ function TypewriterText({ text, isActive }: { text: string; isActive: boolean })
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const { data: apiFaqs = [] } = useQuery({
+    queryKey: ["homepage", "faqs"],
+    queryFn: () => api.homepage.faqs(),
+  });
+
+  const faqs = useMemo(() => {
+    if (apiFaqs.length === 0) return DEFAULT_FAQS;
+    return [...apiFaqs]
+      .sort((a, b) => a.order - b.order)
+      .map((faq) => ({ q: faq.question, a: faq.answer }));
+  }, [apiFaqs]);
+
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -84,10 +71,8 @@ export default function FAQSection() {
   return (
     <section className="py-24 md:py-32 w-full relative overflow-hidden bg-background transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-20">
-        {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
           
-          {/* Left Column - Header */}
           <motion.div
             variants={fadeInUp}
             initial="initial"
@@ -103,7 +88,6 @@ export default function FAQSection() {
             </p>
           </motion.div>
 
-          {/* Right Column - FAQ List */}
           <div className="space-y-0">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
@@ -128,7 +112,6 @@ export default function FAQSection() {
                       {faq.q}
                     </span>
 
-                    {/* Plus/Minus Icon */}
                     <div className="relative shrink-0 w-6 h-6">
                       <motion.span
                         animate={{ rotate: isOpen ? 90 : 0 }}
@@ -153,7 +136,6 @@ export default function FAQSection() {
                     </div>
                   </button>
 
-                  {/* Answer with Typewriter Effect */}
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div

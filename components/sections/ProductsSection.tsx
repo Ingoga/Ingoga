@@ -1,6 +1,10 @@
 "use client"
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { mediaUrl, resolveFeaturedProducts } from "../../lib/api";
+import { DEFAULT_PRODUCTS, PRODUCT_FALLBACK_IMAGES } from "../../lib/defaults";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -14,31 +18,23 @@ const staggerContainer = {
   whileInView: { transition: { staggerChildren: 0.1 } }
 };
 
-const products = [
-  {
-    title: "UBUZIMA DIGITAL SYSTEM",
-    desc: "A modern digital health platform focused on clinical workflows, decision support, and intelligent care delivery. Built for real-world complexity, designed for clinicians who need clarity and precision.",
-    tag: "Visit UDS →",
-    img: "/UDS.jpg",
-    slug: "/blog/uds"
-  },
-  {
-    title: "NEXUN INC.",
-    desc: "Advanced AI systems, medical automation, and emerging research in intelligence, energy, and next-generation computation. NEXUN Inc. builds the future layer by layer.",
-    tag: "Visit NEXUN →",
-    img: "/NEXUN.jpg",
-    slug: "/blog/nexun"
-  },
-  {
-    title: "RESAS",
-    desc: "A high-precision safety and response platform combining sensors, real-time software, and intelligent automation. Built for speed and accuracy — every second counts when lives are on the line.",
-    tag: "Visit RESAS →",
-    img: "/RESAS.png",
-    slug: "/blog/resas"
-  }
-];
-
 export default function ProductsSection() {
+  const { data: featured = [] } = useQuery({
+    queryKey: ["homepage", "featured-products"],
+    queryFn: resolveFeaturedProducts,
+  });
+
+  const products = useMemo(() => {
+    if (featured.length === 0) return DEFAULT_PRODUCTS;
+    return featured.map((product, i) => ({
+      title: product.name,
+      desc: product.description,
+      tag: `Visit ${product.name.split(" ")[0]} →`,
+      img: mediaUrl(product.logoUrl) || PRODUCT_FALLBACK_IMAGES[i % PRODUCT_FALLBACK_IMAGES.length],
+      slug: product.websiteUrl || "/products",
+    }));
+  }, [featured]);
+
   return (
     <section className="py-16 md:py-24 px-6 md:px-8 lg:px-16 max-w-[1400px] mx-auto border-t border-black/10 dark:border-white/10 transition-colors duration-300">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 md:mb-16 gap-6">
@@ -55,7 +51,7 @@ export default function ProductsSection() {
           </p>
         </motion.div>
         <motion.a
-          href="#"
+          href="/products"
           whileHover={{ x: 5 }}
           className="flex text-foreground/70 hover:text-foreground text-sm font-bold transition items-center gap-2 group border border-black/20 dark:border-white/20 px-6 py-3 rounded-md"
         >
@@ -79,7 +75,16 @@ export default function ProductsSection() {
           >
             <div className="space-y-6 md:space-y-8">
               <div className="h-16 flex items-center">
-                <img src={product.img} alt={product.title} className="max-h-full max-w-[160px] object-contain rounded-md" />
+                <img
+                  src={product.img}
+                  alt={product.title}
+                  className="max-h-full max-w-[160px] object-contain rounded-md"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    const fallback = PRODUCT_FALLBACK_IMAGES[i % PRODUCT_FALLBACK_IMAGES.length];
+                    if (!target.src.endsWith(fallback)) target.src = fallback;
+                  }}
+                />
               </div>
               <div>
                 <h3 className="text-lg font-black text-foreground mb-3 md:mb-4 tracking-wider uppercase">{product.title}</h3>

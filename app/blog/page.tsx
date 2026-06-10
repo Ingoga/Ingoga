@@ -1,5 +1,6 @@
 "use client"
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import HeroWithScroll from "../../components/sections/HeroWithScroll";
 import NavigationDots from "../../components/ui/NavigationDots";
@@ -7,59 +8,52 @@ import Link from "next/link";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import CTASection from "../../components/sections/CTASection";
+import { api, mediaUrl } from "../../lib/api";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: "easeOut" }
-};
+function contentExcerpt(content?: string | null, maxLen = 160): string {
+  if (!content) return "";
+  const text = content.replace(/\n+/g, " ").trim();
+  if (text.length <= maxLen) return text;
+  return `${text.slice(0, maxLen).trim()}...`;
+}
 
-const categories = [
-  "All",
-  "AI & Machine Learning",
-  "Computer science",
-  "Digital Health",
-  "Emergency Tech",
-  "Research",
-  "Africa Tech"
-];
-
-const blogs = [
-  {
-    slug: "ai-powered-clinical-decision-support",
-    image: "/Heart-Beat-Measure.jpg",
-    tag: "AI & Machine Learning",
-    title: "How AI-Powered Clinical Decision Support Is Transforming Healthcare in Africa",
-    desc: "A deep dive into how intelligent systems are reducing diagnostic errors and improving patient outcomes across under-resourced healthcare settings on the continent.",
-    author: "John Doe",
-    readTime: "8min read",
-    date: "May 2025"
-  },
-  {
-    slug: "medical-automation-where-ai-meets-clinical-precision",
-    image: "/NEXUN.jpg",
-    tag: "Computer science",
-    title: "Medical Automation: Where AI Meets Clinical Precision",
-    desc: "NEXUN's research into automating routine clinical tasks without sacrificing accuracy or safety.",
-    author: "John Doe",
-    readTime: "8min read",
-    date: "May 2025"
-  },
-  {
-    slug: "data-security-in-clinical-systems",
-    image: "/Frame 1000011649.png",
-    tag: "Research",
-    title: "Data Security in Clinical Systems: Building Trust in Digital Health",
-    desc: "How we approach patient data protection in environments with varying regulatory frameworks.",
-    author: "John Doe",
-    readTime: "6min read",
-    date: "May 2025"
+function formatPublishDate(date?: string): string {
+  if (!date) return "";
+  try {
+    return new Date(date).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  } catch {
+    return date;
   }
-];
+}
 
 export default function BlogPage() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activePage, setActivePage] = useState(0);
+
+  const { data: blogList } = useQuery({
+    queryKey: ["blog", "list"],
+    queryFn: () => api.blog.list("published", 50),
+  });
+
+  const categories = useMemo(() => {
+    if (!blogList?.data?.length) return ["All"];
+    const cats = new Set(blogList.data.map((post) => post.category).filter(Boolean));
+    return ["All", ...Array.from(cats)];
+  }, [blogList]);
+
+  const blogs = useMemo(() => {
+    if (!blogList?.data?.length) return [];
+    return blogList.data.map((post) => ({
+      slug: post.slug || post.id,
+      image: mediaUrl(post.coverImageUrl),
+      tag: post.category,
+      title: post.title,
+      desc: contentExcerpt(post.content),
+      author: post.author,
+      readTime: post.readingTime || "",
+      date: formatPublishDate(post.publishDate),
+    }));
+  }, [blogList]);
 
   const filteredBlogs = activeFilter === "All"
     ? blogs
@@ -109,11 +103,13 @@ export default function BlogPage() {
                 <Link href={`/blog/${blog.slug}`}>
                   <div className="group cursor-pointer flex flex-col bg-[#0a0a0a] border border-zinc-800/50 rounded-xl overflow-hidden hover:border-zinc-700 transition-all duration-300 h-full">
                     <div className="w-full aspect-video overflow-hidden">
-                      <img
-                        src={blog.image}
-                        alt={blog.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
-                      />
+                      {blog.image && (
+                        <img
+                          src={blog.image}
+                          alt={blog.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                        />
+                      )}
                     </div>
                     <div className="p-8 space-y-6 flex-1 flex flex-col">
                       <div>
