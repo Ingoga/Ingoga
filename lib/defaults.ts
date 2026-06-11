@@ -1,5 +1,3 @@
-/** Default landing-page content when API data is empty — maps to ingoga/public assets. */
-
 export const DEFAULT_TEAM = [
   { name: "Sylvia M", role: "Management", img: "/Girl.jpg", text: "Align transformed our project management" },
   { name: "Patrick Ngonga", role: "Founder & CEO", img: "/Man.jpg", text: "Leading African deep-tech innovation" },
@@ -95,6 +93,5 @@ export const DEFAULT_PARTNERS = [
   "Kigali Innovation City",
 ];
 
-/** Map product/team index to a public-folder fallback image. */
 export const TEAM_FALLBACK_IMAGES = ["/Girl.jpg", "/Man.jpg", "/Boy.jpg", "/Girl.jpg"];
 export const PRODUCT_FALLBACK_IMAGES = ["/UDS.jpg", "/NEXUN.jpg", "/RESAS.png"];

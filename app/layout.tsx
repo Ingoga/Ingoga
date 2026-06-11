@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { QueryProvider } from "../components/providers/QueryProvider";
+import CustomCursor from "../components/ui/CustomCursor";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -37,6 +38,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div className="grain-overlay" />
+            <CustomCursor />
             {children}
           </ThemeProvider>
         </QueryProvider>

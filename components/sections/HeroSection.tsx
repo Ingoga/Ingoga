@@ -87,7 +87,7 @@ export default function HeroSection() {
           style={{ height: '200px' }}
         >
           <h1 className="text-6xl sm:text-9xl md:text-[148px] font-medium text-[#E62505] select-none text-center tracking-tight"
-              style={{ textShadow: '0px 0px 40px rgba(230,37,5,0.4)' }}
+            style={{ textShadow: '0px 0px 40px rgba(230,37,5,0.4)' }}
           >
             {brandTitle}
           </h1>

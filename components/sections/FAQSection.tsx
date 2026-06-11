@@ -23,7 +23,7 @@ function TypewriterText({ text, isActive }: { text: string; isActive: boolean })
         setDisplayedText(text.slice(0, currentIndex + 1));
         setCurrentIndex(currentIndex + 1);
       }, 15);
-      
+
       return () => clearTimeout(timeout);
     }
   }, [isActive, currentIndex, text]);
@@ -72,7 +72,7 @@ export default function FAQSection() {
     <section className="py-24 md:py-32 w-full relative overflow-hidden bg-background transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
-          
+
           <motion.div
             variants={fadeInUp}
             initial="initial"
@@ -91,7 +91,7 @@ export default function FAQSection() {
           <div className="space-y-0">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
-              
+
               return (
                 <motion.div
                   key={index}
@@ -118,14 +118,14 @@ export default function FAQSection() {
                         transition={{ duration: 0.3 }}
                         className="absolute inset-0 flex items-center justify-center"
                       >
-                        <svg 
-                          width="24" 
-                          height="24" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
                           strokeLinejoin="round"
                           className={isOpen ? 'text-red-500' : 'text-foreground/50 group-hover:text-foreground/80'}
                         >

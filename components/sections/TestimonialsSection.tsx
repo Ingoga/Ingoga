@@ -58,14 +58,14 @@ export default function TestimonialsSection() {
         initial="initial"
         whileInView="whileInView"
         viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 text-left px-0 md:px-12 lg:px-28"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 text-left px-0 md:px-12 lg:px-24"
       >
         {testimonials.map((t) => (
           <motion.div
             key={t.id}
             variants={fadeInUp}
             whileHover={{ y: -5 }}
-            className="cursor-pointer border-l-2 border-t-2 border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 rounded-l-2xl rounded-r-none rounded-b-none p-6 md:p-8 bg-background transition-all duration-300 flex flex-col justify-between gap-6"
+            className="cursor-pointer border-l-2 border-t-2 border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 rounded-l-2xl rounded-r-none rounded-b-none p-4 md:p-6 bg-background transition-all duration-300 flex flex-col justify-between gap-6"
           >
             <p className="text-foreground/70 text-[14px] md:text-[15px] leading-relaxed">{t.quote}</p>
             <div className="flex items-center gap-4">

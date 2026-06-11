@@ -59,17 +59,39 @@
 }
 
 @keyframes torch-flicker {
-  0% { opacity: 1; }
-  71.4% { opacity: 1; }
-  71.41% { opacity: 0; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  71.4% {
+    opacity: 1;
+  }
+
+  71.41% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes torch-source-flicker {
-  0% { opacity: 1; }
-  71.4% { opacity: 1; }
-  71.41% { opacity: 0; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  71.4% {
+    opacity: 1;
+  }
+
+  71.41% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 body {
@@ -104,4 +126,23 @@ input::placeholder,
 textarea::placeholder {
   color: rgb(113, 113, 122) !important;
   opacity: 1;
+}
+
+
+
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 1s ease-out;
+}
+
+
+@media (pointer: fine) {
+  html, body, * {
+    cursor: none !important;
+  }
 }

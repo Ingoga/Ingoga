@@ -49,7 +49,7 @@ export default function InnovationSection() {
         }}
       >
         {/* Pill 1 */}
-        <div 
+        <div
           className="w-[140%] h-[50px] md:h-[60px] rounded-full flex items-center px-6 md:px-8 relative bg-black/5 dark:bg-transparent"
           style={{
             marginLeft: '0%',
@@ -58,14 +58,14 @@ export default function InnovationSection() {
             border: '1px solid var(--card-border)'
           }}
         >
-          <div 
+          <div
             className="w-full h-[6px] md:h-[8px] rounded-full relative"
             style={{
               background: '#000000',
               boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <motion.div 
+            <motion.div
               initial={{ width: "0%" }}
               whileInView={{ width: "45%" }}
               viewport={{ once: false }}
@@ -81,7 +81,7 @@ export default function InnovationSection() {
         </div>
 
         {/* Pill 2 */}
-        <div 
+        <div
           className="w-[140%] h-[50px] md:h-[60px] rounded-full flex items-center px-6 md:px-8 relative bg-black/5 dark:bg-transparent"
           style={{
             marginLeft: '20%',
@@ -90,14 +90,14 @@ export default function InnovationSection() {
             border: '1px solid var(--card-border)'
           }}
         >
-          <div 
+          <div
             className="w-full h-[6px] md:h-[8px] rounded-full relative"
             style={{
               background: '#000000',
               boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <motion.div 
+            <motion.div
               initial={{ width: "0%" }}
               whileInView={{ width: "40%" }}
               viewport={{ once: false }}
@@ -112,7 +112,7 @@ export default function InnovationSection() {
         </div>
 
         {/* Pill 3 */}
-        <div 
+        <div
           className="w-[140%] h-[50px] md:h-[60px] rounded-full flex items-center px-6 md:px-8 relative bg-black/5 dark:bg-transparent"
           style={{
             marginLeft: '35%',
@@ -121,14 +121,14 @@ export default function InnovationSection() {
             border: '1px solid var(--card-border)'
           }}
         >
-          <div 
+          <div
             className="w-full h-[6px] md:h-[8px] rounded-full relative"
             style={{
               background: '#000000',
               boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <motion.div 
+            <motion.div
               initial={{ width: "0%" }}
               whileInView={{ width: "50%" }}
               viewport={{ once: false }}
@@ -143,7 +143,7 @@ export default function InnovationSection() {
         </div>
 
         {/* Pill 4 */}
-        <div 
+        <div
           className="w-[140%] h-[50px] md:h-[60px] rounded-full flex items-center px-6 md:px-8 relative bg-black/5 dark:bg-transparent"
           style={{
             marginLeft: '20%',
@@ -152,14 +152,14 @@ export default function InnovationSection() {
             border: '1px solid var(--card-border)'
           }}
         >
-          <div 
+          <div
             className="w-full h-[6px] md:h-[8px] rounded-full relative"
             style={{
               background: '#000000',
               boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <motion.div 
+            <motion.div
               initial={{ width: "0%" }}
               whileInView={{ width: "35%" }}
               viewport={{ once: false }}
@@ -174,7 +174,7 @@ export default function InnovationSection() {
         </div>
 
         {/* Pill 5 */}
-        <div 
+        <div
           className="w-[140%] h-[50px] md:h-[60px] rounded-full flex items-center px-6 md:px-8 relative bg-black/5 dark:bg-transparent"
           style={{
             marginLeft: '0%',
@@ -183,14 +183,14 @@ export default function InnovationSection() {
             border: '1px solid var(--card-border)'
           }}
         >
-          <div 
+          <div
             className="w-full h-[6px] md:h-[8px] rounded-full relative"
             style={{
               background: '#000000',
               boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, 0.05)'
             }}
           >
-            <motion.div 
+            <motion.div
               initial={{ width: "0%" }}
               whileInView={{ width: "30%" }}
               viewport={{ once: false }}
