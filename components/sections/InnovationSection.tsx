@@ -1,11 +1,13 @@
 "use client"
 import { motion } from "framer-motion";
 
+const customEasing: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: false },
-  transition: { duration: 0.8, ease: "easeOut" }
+  initial: { opacity: 0, x: -40 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: false, amount: 0.3 },
+  transition: { duration: 1.2, ease: customEasing }
 };
 
 export default function InnovationSection() {
@@ -69,7 +71,7 @@ export default function InnovationSection() {
               initial={{ width: "0%" }}
               whileInView={{ width: "45%" }}
               viewport={{ once: false }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
+              transition={{ duration: 1.5, ease: customEasing }}
               className="absolute h-full rounded-full"
               style={{
                 left: '0',
@@ -101,7 +103,7 @@ export default function InnovationSection() {
               initial={{ width: "0%" }}
               whileInView={{ width: "40%" }}
               viewport={{ once: false }}
-              transition={{ duration: 1.5, ease: "easeOut", delay: 0.1 }}
+              transition={{ duration: 1.5, ease: customEasing, delay: 0.1 }}
               className="absolute h-full rounded-full"
               style={{
                 background: '#381C1A',
@@ -132,7 +134,7 @@ export default function InnovationSection() {
               initial={{ width: "0%" }}
               whileInView={{ width: "50%" }}
               viewport={{ once: false }}
-              transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+              transition={{ duration: 1.5, ease: customEasing, delay: 0.2 }}
               className="absolute h-full rounded-full"
               style={{
                 background: '#B31B11',
@@ -163,7 +165,7 @@ export default function InnovationSection() {
               initial={{ width: "0%" }}
               whileInView={{ width: "35%" }}
               viewport={{ once: false }}
-              transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+              transition={{ duration: 1.5, ease: customEasing, delay: 0.3 }}
               className="absolute h-full rounded-full"
               style={{
                 background: '#381C1A',
@@ -194,7 +196,7 @@ export default function InnovationSection() {
               initial={{ width: "0%" }}
               whileInView={{ width: "30%" }}
               viewport={{ once: false }}
-              transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
+              transition={{ duration: 1.5, ease: customEasing, delay: 0.4 }}
               className="absolute h-full rounded-full"
               style={{
                 background: '#381C1A',

@@ -85,7 +85,7 @@ export default function CustomCursor() {
           backgroundColor: "rgba(230, 37, 5, 0.05)",
         }}
         animate={{
-          scale: isHovered ? 2.2 : 1,
+          scale: isHovered ? 1.3 : 1,
           backgroundColor: isHovered ? "rgba(230, 37, 5, 0.2)" : "rgba(230, 37, 5, 0.05)",
         }}
         transition={{ duration: 0.5, ease: LUXURY_EASE }}
@@ -102,7 +102,7 @@ export default function CustomCursor() {
           backgroundColor: "rgba(230, 37, 5, 0.25)",
         }}
         animate={{
-          scale: isHovered ? 1.6 : 1,
+          scale: isHovered ? 1.2 : 1,
           backgroundColor: isHovered ? "rgba(230, 37, 5, 0.4)" : "rgba(230, 37, 5, 0.25)",
         }}
         transition={{ duration: 0.4, ease: LUXURY_EASE }}
@@ -119,7 +119,7 @@ export default function CustomCursor() {
           backgroundColor: "#E62505",
         }}
         animate={{
-          scale: isHovered ? 1.3 : 1,
+          scale: isHovered ? 1.1 : 1,
         }}
         transition={{ duration: 0.3, ease: LUXURY_EASE }}
       />

@@ -5,11 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../lib/api";
 import { DEFAULT_FAQS } from "../../lib/defaults";
 
+const customEasing: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.8, ease: "easeOut" }
+  transition: { duration: 1.2, ease: customEasing }
 };
 
 // Typewriter component with proper effect
@@ -142,7 +144,10 @@ export default function FAQSection() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ 
+                          height: { duration: 0.5, ease: customEasing },
+                          opacity: { duration: 0.3, delay: 0.2, ease: "easeInOut" }
+                        }}
                         className="overflow-hidden"
                       >
                         <div className="pb-6 pr-4 md:pr-12">

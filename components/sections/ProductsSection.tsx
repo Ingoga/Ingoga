@@ -6,11 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import { mediaUrl, resolveFeaturedProducts } from "../../lib/api";
 import { DEFAULT_PRODUCTS, PRODUCT_FALLBACK_IMAGES } from "../../lib/defaults";
 
+const customEasing: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.8, ease: "easeOut" }
+  transition: { duration: 1, ease: customEasing }
 };
 
 const staggerContainer = {
@@ -70,7 +72,8 @@ export default function ProductsSection() {
           <motion.div
             key={i}
             variants={fadeInUp}
-            whileHover={{ y: -10 }}
+            whileHover={{ scale: 1.02, y: -10, borderColor: "rgba(230, 37, 5, 0.5)", boxShadow: "0 20px 40px -10px rgba(230, 37, 5, 0.15)" }}
+            transition={{ duration: 0.5, ease: customEasing }}
             className="group p-6 bg-black/5 dark:bg-[#080808] border border-black/10 dark:border-white/10 rounded-lg flex flex-col justify-between gap-8 md:gap-12 transition-all duration-500"
           >
             <div className="space-y-6 md:space-y-8">
@@ -86,9 +89,9 @@ export default function ProductsSection() {
                   }}
                 />
               </div>
-              <div>
-                <h3 className="text-lg font-black text-foreground mb-3 md:mb-4 tracking-wider uppercase">{product.title}</h3>
-                <p className="text-foreground/70 text-sm leading-relaxed">{product.desc}</p>
+              <div className="group-hover:-translate-y-1 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <h3 className="text-lg font-black text-foreground mb-3 md:mb-4 tracking-wider uppercase group-hover:text-[#E62505] transition-colors duration-500">{product.title}</h3>
+                <p className="text-foreground/70 text-sm leading-relaxed group-hover:text-foreground/90 transition-colors duration-500">{product.desc}</p>
               </div>
             </div>
             <Link

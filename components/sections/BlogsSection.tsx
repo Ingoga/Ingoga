@@ -6,11 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import { mediaUrl, resolveFeaturedBlogs } from "../../lib/api";
 import { DEFAULT_BLOG_FEATURED, DEFAULT_BLOG_SIDE } from "../../lib/defaults";
 
+const customEasing: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.8, ease: "easeOut" }
+  transition: { duration: 1.2, ease: customEasing }
 };
 
 function contentExcerpt(content?: string | null, maxLen = 160): string {
@@ -82,20 +84,23 @@ export default function BlogsSection() {
           className="lg:col-span-7 group cursor-pointer flex flex-col bg-black/5 dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-xl overflow-hidden"
         >
           <Link href={`/blog/${featuredSlug}`}>
-            <div className="w-full aspect-video overflow-hidden">
-              <img
-                src={featuredImage}
-                alt={featured.title}
-                className="w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 transition duration-700"
-                onError={(e) => { e.currentTarget.src = "/Heart-Beat-Measure.jpg"; }}
-              />
-            </div>
-            <div className="p-6 md:p-8 space-y-6 md:space-y-8 flex-1 flex flex-col">
-              <div>
-                <span className="inline-block px-4 md:px-5 py-2 bg-red-500/10 text-red-600 dark:text-red-400 text-[13px] font-medium rounded-md mb-6 md:mb-8">{featured.category}</span>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 md:mb-6 leading-tight transition-colors">
-                  {featured.title}
-                </h3>
+              <div className="w-full aspect-video overflow-hidden relative">
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-1000 z-10 pointer-events-none" />
+                <motion.img
+                  src={featuredImage}
+                  alt={featured.title}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 1.5, ease: customEasing }}
+                  className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1500"
+                  onError={(e) => { e.currentTarget.src = "/Heart-Beat-Measure.jpg"; }}
+                />
+              </div>
+              <div className="p-6 md:p-8 space-y-6 md:space-y-8 flex-1 flex flex-col relative z-20">
+                <div className="transform group-hover:-translate-y-2 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <span className="inline-block px-4 md:px-5 py-2 bg-red-500/10 text-red-600 dark:text-red-400 text-[13px] font-medium rounded-md mb-6 md:mb-8">{featured.category}</span>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 md:mb-6 leading-tight transition-colors group-hover:text-[#E62505]">
+                    {featured.title}
+                  </h3>
                 <p className="text-foreground/70 text-base md:text-lg leading-relaxed">
                   {contentExcerpt(featured.content)}
                 </p>
@@ -122,11 +127,11 @@ export default function BlogsSection() {
               className="group cursor-pointer p-6 md:p-10 bg-black/5 dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-xl flex flex-col justify-between hover:border-black/30 dark:hover:border-white/30 transition-all duration-300 h-auto lg:h-1/2"
             >
               <Link href={`/blog/${blog.slug || ("id" in blog ? blog.id : "")}`}>
-                <div className="space-y-4 md:space-y-6">
-                  <span className="inline-block px-4 md:px-5 py-2 bg-red-500/10 text-red-600 dark:text-red-400 text-[13px] font-medium rounded-md mb-2 md:mb-4">
+                <div className="space-y-4 md:space-y-6 transform group-hover:-translate-y-1 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <span className="inline-block px-4 md:px-5 py-2 bg-red-500/10 text-red-600 dark:text-red-400 text-[13px] font-medium rounded-md mb-2 md:mb-4 transition-colors">
                     {blog.category}
                   </span>
-                  <h3 className="text-lg md:text-xl font-bold text-foreground mb-3 md:mb-4 leading-tight transition-colors">
+                  <h3 className="text-lg md:text-xl font-bold text-foreground mb-3 md:mb-4 leading-tight transition-colors group-hover:text-[#E62505]">
                     {blog.title}
                   </h3>
                   <p className="text-foreground/70 text-sm md:text-base leading-relaxed">

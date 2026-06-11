@@ -93,12 +93,12 @@ export default function TeamSection({ scope = "featured" }: TeamSectionProps) {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/20"></div>
 
-            <div className="absolute inset-x-2 bottom-2 p-4 h-48 rounded-xl bg-transparent border border-white/20 flex flex-col justify-end backdrop-blur-[2px]">
-              <p className="text-white font-medium text-sm md:text-lg leading-tight mb-6">
+            <div className="absolute inset-x-1 bottom-2 p-4 h-42 rounded-lg bg-transparent border border-white/20 flex flex-col justify-end backdrop-blur-[2px]">
+              <p className="text-white font-medium text-sm md:text-md leading-tight mb-6">
                 {member.text}
               </p>
               <div className="space-y-1 mb-3">
-                <p className="text-white font-semibold text-[16px] md:text-[18px]">{member.name}</p>
+                <p className="text-white font-semibold text-[16px] md:text-[16px]">{member.name}</p>
                 <p className="text-gray-300 text-[13px] md:text-[14px]">{member.role}</p>
               </div>
 
