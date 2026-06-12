@@ -1,21 +1,156 @@
 "use client"
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { api } from "../../lib/api";
+import { api, mediaUrl } from "../../lib/api";
 import { DEFAULT_HERO, DEFAULT_PARTNERS } from "../../lib/defaults";
-import { useEffect, useRef } from "react";
-const generateWavePath = (isAlternate: boolean) => {
-  const wavelength = 100;
-  const amplitude = 40;
-  let d = "M0 40 ";
-  for (let i = 0; i < 4800; i += wavelength) {
-    const yOffset = isAlternate ? 40 + amplitude : 40 - amplitude;
-    d += `Q ${i + wavelength / 4} ${yOffset} ${i + wavelength / 2} 40 T ${i + wavelength} 40 `;
-  }
-  return d.trim();
-};
+import { useRef, useState, useEffect } from "react";
+import { ChevronRight } from "lucide-react";
+import { DEFAULT_ACTIVITIES, Activity } from "./RecentActivitiesSection";
 
+
+const FAN_LAYOUT = [
+  { rotate: -32, y: -45, zIndex: 1 },
+  { rotate: -24, y: -32, zIndex: 2 },
+  { rotate: -16, y: -20, zIndex: 3 },
+  { rotate: -8, y: -10, zIndex: 4 },
+  { rotate: 0, y: 0, zIndex: 5 },
+] as const;
+
+const HOVER_LIFT = -24;
+
+function HeroActivities() {
+  const { data: activities = DEFAULT_ACTIVITIES } = useQuery({
+    queryKey: ["recent-activities"],
+    queryFn: () => api.recentActivities.list(),
+  });
+
+  const [cards, setCards] = useState<Activity[]>([...DEFAULT_ACTIVITIES].slice(0, 5).reverse());
+
+  useEffect(() => {
+    if (activities) {
+      const merged = [...activities];
+      let i = 0;
+      while (merged.length < 5 && i < DEFAULT_ACTIVITIES.length) {
+        if (!merged.find((a) => a.id === DEFAULT_ACTIVITIES[i].id)) {
+          merged.push(DEFAULT_ACTIVITIES[i]);
+        }
+        i++;
+      }
+      setCards(merged.slice(0, 5).reverse());
+    }
+  }, [activities]);
+
+  const selected = cards[cards.length - 1];
+
+  const handleCardClick = (index: number) => {
+    if (index === cards.length - 1) return;
+    setCards((prev) => {
+      const next = [...prev];
+      const frontIndex = next.length - 1;
+      const temp = next[index];
+      next[index] = next[frontIndex];
+      next[frontIndex] = temp;
+      return next;
+    });
+  };
+
+  return (
+    <>
+      <div className="absolute top-28 left-4 md:top-36 md:left-14 z-50 pointer-events-none">
+        <div className="relative w-[280px] h-[248px] md:w-[380px] md:h-[320px]">
+          {cards.map((activity, i) => {
+            const layout = FAN_LAYOUT[i] ?? FAN_LAYOUT[FAN_LAYOUT.length - 1];
+            const isFront = i === cards.length - 1;
+
+            return (
+              <motion.div
+                key={activity.id}
+                initial={{ opacity: 0, y: 48, rotate: 0 }}
+                animate={{
+                  opacity: 1,
+                  x: "-50%",
+                  y: layout.y,
+                  rotate: layout.rotate,
+                }}
+                whileHover={{
+                  x: "-50%",
+                  y: HOVER_LIFT,
+                  rotate: layout.rotate,
+                }}
+                onClick={() => handleCardClick(i)}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                className={`absolute left-1/2 bottom-0 w-[180px] h-[240px] md:w-[220px] md:h-[280px] cursor-pointer rounded-[20px] overflow-hidden border bg-[#111] pointer-events-auto ${isFront
+                  ? "border-[#E62505]/70 shadow-[0_0_28px_rgba(230,37,5,0.35)]"
+                  : "border-white/15 shadow-2xl"
+                  }`}
+                style={{
+                  transformOrigin: "bottom center",
+                  zIndex: layout.zIndex,
+                }}
+              >
+                <img
+                  src={mediaUrl(activity.image)}
+                  alt={activity.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-[#080808] via-black/45 to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
+                  <span className="px-2.5 py-1 rounded-full text-[9px] font-bold bg-[#E62505] text-white uppercase tracking-wide mb-2 inline-block">
+                    {activity.category}
+                  </span>
+                  <p className="text-white text-[11px] md:text-xs font-bold line-clamp-2 leading-tight drop-shadow-md">
+                    {activity.title}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selected.id}
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ type: "spring", damping: 25, stiffness: 200 }}
+          className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-50 w-[260px] md:w-[320px] rounded-2xl overflow-hidden bg-black/40 backdrop-blur-xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] pointer-events-auto group"
+        >
+          <div className="relative h-32 md:h-40 overflow-hidden">
+            <img src={mediaUrl(selected.image)} alt={selected.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div className="absolute inset-0 bg-linear-to-t from-[#0a0a0a] via-black/20 to-transparent pointer-events-none" />
+          </div>
+          <div className="p-5 space-y-3 relative z-10 bg-[#0a0a0a]/90 backdrop-blur-md">
+            <div className="flex items-center gap-2 text-[10px] text-white/50">
+              <span>{selected.date}</span>
+              <span className="ml-auto text-[#E62505]/80 font-medium truncate max-w-[100px]">
+                {selected.tag}
+              </span>
+            </div>
+            <h3 className="text-sm md:text-base font-bold text-white leading-snug line-clamp-2">
+              {selected.title}
+            </h3>
+            <p className="text-[11px] md:text-xs text-white/60 leading-relaxed line-clamp-3">
+              {selected.excerpt}
+            </p>
+            <div className="pt-2 flex items-center justify-between">
+              <button className="text-[11px] font-semibold text-[#E62505] flex items-center gap-1 hover:gap-2 transition-all duration-300">
+                Explore <ChevronRight size={12} />
+              </button>
+              <div className="flex gap-1">
+                {cards.map((c) => (
+                  <div key={c.id} className={`w-1.5 h-1.5 rounded-full ${c.id === selected.id ? 'bg-[#E62505]' : 'bg-white/20'}`} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </>
+  );
+}
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -64,52 +199,9 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full flex flex-col items-center justify-start z-10 overflow-hidden transition-colors duration-300 bg-background"
+      className="relative w-full flex flex-col items-center justify-start z-10 transition-colors duration-300 bg-background"
     >
-      <div className="relative min-h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden">
-        {/* Oblique Diagonal Waves Background */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          {/* Rotated container makes all waves appear diagonal like Jet template */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: '-50%',
-              transform: 'rotate(-18deg)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0px',
-            }}
-          >
-            {[...Array(12)].map((_, i) => (
-              <motion.div
-                key={i}
-                animate={{ x: [0, -2400] }}
-                transition={{
-                  duration: 18 + i * 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                style={{
-                  position: 'absolute',
-                  top: `${i * 8}%`,
-                  width: '9600px',
-                  height: '120px',
-                  opacity: 0.18 - i * 0.01,
-                }}
-              >
-                <svg width="9600" height="120" viewBox="0 0 9600 120" fill="none">
-                  <path
-                    d={generateWavePath(i % 2 !== 0)}
-                    stroke={i % 3 === 0 ? "#E62505" : i % 3 === 1 ? "#CC1A00" : "#ff3300"}
-                    strokeWidth={1.5 + (i % 4) * 0.8}
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </motion.div>
-            ))}
-          </div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[50vh] bg-[#E62505]/10 blur-[120px] rounded-full" />
-        </div>
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <motion.div
           style={{ x: translateX, y: translateY, rotateX, rotateY, width: '100vw', maxWidth: '1100px', perspective: 1000 }}
           className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none z-0 flex flex-col items-center"
@@ -144,26 +236,26 @@ export default function HeroSection() {
           />
         </motion.div>
 
-        <div className="relative z-10 flex flex-col items-center w-full max-w-[1000px] mx-auto ">
+        <div className="relative z-10 flex flex-col items-center justify-start w-full max-w-[1000px] mx-auto mt-20 md:mt-24 h-[500px]">
           <div className="absolute inset-0 pointer-events-none">
-            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.5, ease: customEasing }} className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-linear-to-r from-transparent via-black/20 dark:via-white/10 to-transparent origin-center"></motion.div>
-            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.5, ease: customEasing, delay: 0.1 }} className="absolute top-0 left-[calc(50%-180px)] w-px h-[60px] bg-black/10 dark:bg-white/10 hidden md:block origin-top"></motion.div>
-            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.5, ease: customEasing, delay: 0.1 }} className="absolute top-0 right-[calc(50%-180px)] w-px h-[60px] bg-black/10 dark:bg-white/10 hidden md:block origin-top"></motion.div>
-            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.2 }} className="absolute top-[60px] left-1/2 -translate-x-1/2 w-[2000px] h-px bg-linear-to-r from-transparent via-black/20 dark:via-white/10 to-transparent origin-center"></motion.div>
-            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.3 }} className="absolute top-[-20px] left-[20px] md:left-[80px] w-px h-[540px] bg-linear-to-b from-transparent via-black/20 dark:via-white/10 to-transparent hidden sm:block origin-top"></motion.div>
-            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.3 }} className="absolute top-[-20px] right-[20px] md:right-[80px] w-px h-[540px] bg-linear-to-b from-transparent via-black/20 dark:via-white/10 to-transparent hidden sm:block origin-top"></motion.div>
-            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.4 }} className="absolute top-[400px] left-1/2 -translate-x-1/2 w-[2000px] h-px bg-linear-to-r from-transparent via-black/20 dark:via-white/10 to-transparent hidden md:block origin-center"></motion.div>
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.5, ease: customEasing }} className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-px bg-linear-to-r from-transparent via-black/20 dark:via-white/10 to-transparent origin-center"></motion.div>
+            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.5, ease: customEasing, delay: 0.1 }} className="absolute top-0 left-[calc(50%-200px)] w-px h-[60px] bg-black/20 dark:bg-white/10 hidden md:block origin-top"></motion.div>
+            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.5, ease: customEasing, delay: 0.1 }} className="absolute top-0 right-[calc(50%-200px)] w-px h-[60px] bg-black/20 dark:bg-white/10 hidden md:block origin-top"></motion.div>
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.2 }} className="absolute top-[60px] left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-px bg-linear-to-r from-transparent via-black/20 dark:via-white/20 to-transparent origin-center"></motion.div>
+            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.3 }} className="absolute top-[-20px] left-[20px] md:left-[40px] lg:left-[80px] w-px h-[560px] bg-linear-to-b from-transparent via-black/20 dark:via-white/20 to-transparent hidden sm:block origin-top"></motion.div>
+            <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.3 }} className="absolute top-[-20px] right-[20px] md:right-[40px] lg:right-[80px] w-px h-[560px] bg-linear-to-b from-transparent via-black/20 dark:via-white/20 to-transparent hidden sm:block origin-top"></motion.div>
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 2, ease: customEasing, delay: 0.4 }} className="absolute top-[500px] left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-px bg-linear-to-r from-transparent via-black/20 dark:via-white/20 to-transparent hidden md:block origin-center"></motion.div>
 
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1 }} className="absolute top-[60px] left-[20px] md:left-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 -translate-x-1/2 -translate-y-1/2 z-20 hidden sm:block">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1 }} className="absolute top-[60px] left-[20px] md:left-[40px] lg:left-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 -translate-x-1/2 -translate-y-1/2 z-20 hidden sm:block">
               <motion.div animate={{ boxShadow: ['0 0 8px rgba(230,37,5,0.4)', '0 0 16px rgba(230,37,5,0.8)', '0 0 8px rgba(230,37,5,0.4)'] }} transition={{ duration: 2, repeat: Infinity }} className="w-full h-full" />
             </motion.div>
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1 }} className="absolute top-[60px] right-[20px] md:right-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 translate-x-1/2 -translate-y-1/2 z-20 hidden sm:block">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1 }} className="absolute top-[60px] right-[20px] md:right-[40px] lg:right-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 translate-x-1/2 -translate-y-1/2 z-20 hidden sm:block">
               <motion.div animate={{ boxShadow: ['0 0 8px rgba(230,37,5,0.4)', '0 0 16px rgba(230,37,5,0.8)', '0 0 8px rgba(230,37,5,0.4)'] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }} className="w-full h-full" />
             </motion.div>
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1.2 }} className="absolute top-[400px] left-[20px] md:left-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1.2 }} className="absolute top-[500px] left-[20px] md:left-[40px] lg:left-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
               <motion.div animate={{ boxShadow: ['0 0 8px rgba(230,37,5,0.4)', '0 0 16px rgba(230,37,5,0.8)', '0 0 8px rgba(230,37,5,0.4)'] }} transition={{ duration: 2, repeat: Infinity, delay: 1 }} className="w-full h-full" />
             </motion.div>
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1.2 }} className="absolute top-[400px] right-[20px] md:right-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
+            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.5, delay: 1.2 }} className="absolute top-[500px] right-[20px] md:right-[40px] lg:right-[80px] w-1.5 h-1.5 bg-red-600 rotate-45 translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
               <motion.div animate={{ boxShadow: ['0 0 8px rgba(230,37,5,0.4)', '0 0 16px rgba(230,37,5,0.8)', '0 0 8px rgba(230,37,5,0.4)'] }} transition={{ duration: 2, repeat: Infinity, delay: 1.5 }} className="w-full h-full" />
             </motion.div>
           </div>
@@ -172,45 +264,41 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex items-center justify-center relative mx-auto"
-            style={{ height: '60px', width: '360px', maxWidth: '100%' }}
+            className="flex items-center justify-center relative mx-auto w-full max-w-[400px]"
+            style={{ height: '60px' }}
           >
             <p className="text-[14px] md:text-[16px] font-medium text-foreground/80 tracking-wide">{subheading}</p>
           </motion.div>
 
-          <div
-            className="flex items-center justify-center w-full overflow-hidden"
-            style={{ height: '200px' }}
-          >
+          <div className="flex flex-col items-center justify-evenly w-full" style={{ height: '440px' }}>
+            <div className="flex items-center justify-center w-full overflow-hidden">
             <motion.h1
               initial={{ y: 200, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1.2, ease: customEasing, delay: 0.3 }}
-              className="text-6xl sm:text-9xl md:text-[152px] font-medium text-[#E62505] select-none text-center tracking-tight"
-              style={{ textShadow: '0px 0px 40px rgba(230,37,5,0.4)' }}
+              className="text-6xl sm:text-9xl md:text-[136px] font-semibold text-[#E62505] select-none text-center tracking-tight"
             >
               {brandTitle}
             </motion.h1>
-          </div>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex items-center justify-center relative mx-auto px-4 md:px-10"
-            style={{ height: '140px', width: '600px', maxWidth: '100%' }}
-          >
-            <p className="text-[14px] md:text-[17px] text-foreground/80 font-medium text-center leading-relaxed whitespace-pre-line">
-              {content}
-            </p>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="flex items-center justify-center relative mx-auto px-4 md:px-10 w-full max-w-[600px]"
+            >
+              <p className="text-[14px] md:text-[17px] text-foreground/80 font-medium text-center leading-relaxed whitespace-pre-line">
+                {content}
+              </p>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6, ease: customEasing }}
-            className="absolute w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 z-10 top-[440px] md:top-[480px]"
-          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6, ease: customEasing }}
+              className="relative w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 z-10"
+            >
             <Link href="/products">
               <motion.button
                 whileHover={{ scale: 1.05, filter: "brightness(1.1)" }}
@@ -231,9 +319,10 @@ export default function HeroSection() {
                 <div className="absolute inset-0 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12 z-0" />
               </motion.button>
             </Link>
-          </motion.div>
-          <div className="h-[56px] w-full" />
+            </motion.div>
+          </div>
         </div>
+        <HeroActivities />
       </div>
 
       <div className="w-full relative py-12 border-y border-black/5 dark:border-white/5 bg-black/5 dark:bg-[#080808]/40 backdrop-blur-sm z-10 overflow-hidden">

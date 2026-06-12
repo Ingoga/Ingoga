@@ -139,7 +139,20 @@ export interface Paginated<T> {
   limit: number;
 }
 
-// API functions
+export interface RecentActivity {
+  id: string;
+  title: string;
+  category?: string;
+  date?: string;
+  location?: string;
+  excerpt?: string;
+  description?: string;
+  image?: string;
+  tag?: string;
+  highlight?: boolean;
+  order?: number;
+}
+
 export const api = {
   homepage: {
     hero: () => apiFetch<HomepageHero>("/homepage/hero"),
@@ -179,6 +192,9 @@ export const api = {
   partners: {
     list: (limit = 50) =>
       apiFetch<Paginated<Partner>>(`/partners?limit=${limit}`).then((res) => res.data),
+  },
+  recentActivities: {
+    list: () => apiFetch<RecentActivity[]>("/recent-activities"),
   },
 };
 

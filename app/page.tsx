@@ -9,7 +9,8 @@ import {
   TeamSection,
   TestimonialsSection,
   FAQSection,
-  CTASection
+  CTASection,
+  RecentActivitiesSection
 } from "../components/sections";
 
 
