@@ -74,8 +74,9 @@ function HeroActivities() {
                   rotate: layout.rotate,
                 }}
                 whileHover={{
+                  zIndex: 50,
                   x: "-50%",
-                  y: HOVER_LIFT,
+                  y: layout.y,
                   rotate: layout.rotate,
                 }}
                 onClick={() => handleCardClick(i)}
@@ -96,9 +97,9 @@ function HeroActivities() {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#080808] via-black/45 to-transparent pointer-events-none" />
                 <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
-                  {activity.category && (
+                  {(activity.category || activity.tag) && (
                     <span className="px-2.5 py-1 rounded-full text-[9px] font-bold bg-[#E62505] text-white uppercase tracking-wide mb-2 inline-block">
-                      {activity.category}
+                      {activity.category || activity.tag}
                     </span>
                   )}
                   <p className="text-white text-[11px] md:text-xs font-bold line-clamp-2 leading-tight drop-shadow-md">

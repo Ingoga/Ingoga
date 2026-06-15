@@ -142,9 +142,9 @@ export function ActivityModal({
             <div className="absolute inset-0 bg-linear-to-t from-[#0d0d0d] via-black/30 to-transparent" />
             {/* Category pill */}
             <div className="absolute top-4 left-4 flex gap-2">
-              {activity.category && (
+              {(activity.category || activity.tag) && (
                 <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E62505] text-white">
-                  {activity.category}
+                  {activity.category || activity.tag}
                 </span>
               )}
               {activity.highlight && (
@@ -259,9 +259,9 @@ export function ActivityCard({
 
           {/* Category badge */}
           <div className="absolute top-3 left-3">
-            {activity.category && (
+            {(activity.category || activity.tag) && (
               <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E62505] text-white uppercase tracking-wide shadow-lg">
-                {activity.category}
+                {activity.category || activity.tag}
               </span>
             )}
           </div>
