@@ -149,6 +149,7 @@ export interface RecentActivity {
   description?: string;
   image?: string;
   tag?: string;
+  exploreLink?: string;
   highlight?: boolean;
   order?: number;
 }

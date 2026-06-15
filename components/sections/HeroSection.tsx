@@ -96,9 +96,11 @@ function HeroActivities() {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#080808] via-black/45 to-transparent pointer-events-none" />
                 <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
-                  <span className="px-2.5 py-1 rounded-full text-[9px] font-bold bg-[#E62505] text-white uppercase tracking-wide mb-2 inline-block">
-                    {activity.category}
-                  </span>
+                  {activity.category && (
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-bold bg-[#E62505] text-white uppercase tracking-wide mb-2 inline-block">
+                      {activity.category}
+                    </span>
+                  )}
                   <p className="text-white text-[11px] md:text-xs font-bold line-clamp-2 leading-tight drop-shadow-md">
                     {activity.title}
                   </p>
@@ -136,9 +138,19 @@ function HeroActivities() {
               {selected.excerpt}
             </p>
             <div className="pt-2 flex items-center justify-between">
-              <button className="text-[11px] font-semibold text-[#E62505] flex items-center gap-1 hover:gap-2 transition-all duration-300">
-                Explore <ChevronRight size={12} />
-              </button>
+              {selected.exploreLink ? (
+                <Link
+                  href={selected.exploreLink}
+                  target={selected.exploreLink.startsWith("http") ? "_blank" : undefined}
+                  className="text-[11px] font-semibold text-[#E62505] flex items-center gap-1 hover:gap-2 transition-all duration-300"
+                >
+                  Explore <ChevronRight size={12} />
+                </Link>
+              ) : (
+                <button className="text-[11px] font-semibold text-[#E62505] flex items-center gap-1 hover:gap-2 transition-all duration-300">
+                  Explore <ChevronRight size={12} />
+                </button>
+              )}
               <div className="flex gap-1">
                 {cards.map((c) => (
                   <div key={c.id} className={`w-1.5 h-1.5 rounded-full ${c.id === selected.id ? 'bg-[#E62505]' : 'bg-white/20'}`} />

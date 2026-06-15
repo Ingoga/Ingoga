@@ -22,7 +22,7 @@ export const DEFAULT_ACTIVITIES: Activity[] = [
     description:
       "Ingoga Technologies co-hosted the landmark AI Health Summit at Kigali Innovation City, convening over 500 clinicians, engineers, and policymakers from 14 countries. Our UDS platform was showcased live, demonstrating real-time clinical decision support and AI-assisted diagnostics. The summit resulted in three new partnership MOUs with regional ministries of health and laid the groundwork for a continental AI health data standard.",
     image: "/Frame 1000011743 (1).png",
-    tag: "Partnership",
+    tag: "Conference",
     highlight: true,
   },
   {
@@ -142,9 +142,11 @@ export function ActivityModal({
             <div className="absolute inset-0 bg-linear-to-t from-[#0d0d0d] via-black/30 to-transparent" />
             {/* Category pill */}
             <div className="absolute top-4 left-4 flex gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E62505] text-white">
-                {activity.category}
-              </span>
+              {activity.category && (
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E62505] text-white">
+                  {activity.category}
+                </span>
+              )}
               {activity.highlight && (
                 <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white border border-white/20">
                   Featured
@@ -184,7 +186,17 @@ export function ActivityModal({
               {activity.description}
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex gap-3">
+              {activity.exploreLink && (
+                <a
+                  href={activity.exploreLink}
+                  target={activity.exploreLink.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black hover:bg-gray-200 text-sm font-medium transition-colors"
+                >
+                  Explore <ArrowRight size={13} />
+                </a>
+              )}
               <button
                 onClick={onClose}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E62505] hover:bg-[#cc1f04] text-white text-sm font-medium transition-colors"
@@ -247,9 +259,11 @@ export function ActivityCard({
 
           {/* Category badge */}
           <div className="absolute top-3 left-3">
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E62505] text-white uppercase tracking-wide shadow-lg">
-              {activity.category}
-            </span>
+            {activity.category && (
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E62505] text-white uppercase tracking-wide shadow-lg">
+                {activity.category}
+              </span>
+            )}
           </div>
 
           {/* Highlight dot */}
@@ -284,7 +298,7 @@ export function ActivityCard({
           </p>
 
           <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#E62505] group-hover:gap-2.5 transition-all duration-300 pt-1">
-            Read more <ArrowRight size={11} />
+            {activity.exploreLink ? "Explore" : "Read more"} <ArrowRight size={11} />
           </div>
         </div>
       </div>
