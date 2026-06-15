@@ -199,7 +199,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full flex flex-col items-center justify-start z-10 transition-colors duration-300 bg-background"
+      className="relative w-full flex flex-col items-center justify-start z-10 transition-colors duration-300 bg-transparent"
     >
       <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <motion.div
