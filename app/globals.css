@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --color-primary: #E62505;
   --background: #f8fafc;
   --foreground: #020617;
   --card-bg: rgba(255, 255, 255, 0.8);
@@ -142,7 +143,10 @@ textarea::placeholder {
 
 
 @media (pointer: fine) {
-  html, body, * {
+
+  html,
+  body,
+  * {
     cursor: none !important;
   }
 }

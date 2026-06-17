@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { QueryProvider } from "../components/providers/QueryProvider";
 import CustomCursor from "../components/ui/CustomCursor";
+import ScrollToTop from "../components/ui/ScrollToTop";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -40,6 +41,7 @@ export default function RootLayout({
             <div className="grain-overlay" />
             <CustomCursor />
             {children}
+            <ScrollToTop />
           </ThemeProvider>
         </QueryProvider>
       </body>

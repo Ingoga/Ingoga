@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import HeroWithScroll from "../../components/sections/HeroWithScroll";
@@ -15,6 +15,8 @@ export default function ContactPage() {
   const [role, setRole] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { data: hero } = useQuery({
     queryKey: ["contact", "hero"],
@@ -34,7 +36,14 @@ export default function ContactPage() {
   const twitterUrl = details?.twitterUrl || "#";
 
   const handleSubmit = async () => {
-    if (!name.trim() || !email.trim() || submitting) return;
+    // Basic client‑side validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name.trim() || !email.trim() || !emailRegex.test(email.trim())) {
+      setStatus("error");
+      setErrorMessage("Please provide a valid name and email address.");
+      return;
+    }
+    if (submitting) return;
 
     const parts: string[] = [];
     if (organization.trim()) parts.push(`Organization: ${organization.trim()}`);
@@ -43,6 +52,8 @@ export default function ContactPage() {
     const fullMessage = parts.join("\n\n") || "Contact form submission";
 
     setSubmitting(true);
+    setStatus("idle");
+    setErrorMessage("");
     try {
       await api.contact.submit({ name: name.trim(), email: email.trim(), message: fullMessage });
       setName("");
@@ -50,6 +61,14 @@ export default function ContactPage() {
       setOrganization("");
       setRole("");
       setMessage("");
+      setStatus("success");
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err: any) {
+      console.error(err);
+      setStatus("error");
+      setErrorMessage(err.message || "Failed to send message. Please try again later.");
     } finally {
       setSubmitting(false);
     }
@@ -227,15 +246,17 @@ export default function ContactPage() {
                 />
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleSubmit}
-                disabled={submitting}
-                className="cursor-pointer w-full md:w-auto px-8 py-4 rounded-full font-medium text-[16px] tracking-wide relative overflow-hidden transition-all duration-300 shadow-[inset_0_0_15px_1px_rgba(230,37,5,0.4)] border-3 border-red-500/50 bg-background text-foreground"
-              >
-                Send message
-              </motion.button>
+              <div className="flex flex-col gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleSubmit}
+                  disabled={submitting}
+                  className={`cursor-pointer w-full md:w-auto px-8 py-4 rounded-full font-medium text-[16px] tracking-wide relative overflow-hidden transition-all duration-300 shadow-[inset_0_0_15px_1px_rgba(230,37,5,0.4)] border-3 border-red-500/50 bg-background text-foreground ${submitting ? "opacity-70 cursor-not-allowed" : ""}`}
+                >
+                  {submitting ? "Sending..." : "Send message"}
+                </motion.button>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -244,6 +265,48 @@ export default function ContactPage() {
       </main>
 
       <Footer />
+
+      {/* Professional Floating Toast Notification */}
+      <AnimatePresence>
+        {status !== "idle" && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-100 min-w-[320px] shadow-2xl"
+          >
+            {status === "success" && (
+              <div className="flex items-center gap-4 px-6 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-2xl border border-zinc-800 dark:border-zinc-200">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/20 text-green-500 shrink-0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-sm">Message Sent!</span>
+                  <span className="text-xs opacity-80">We'll get back to you shortly.</span>
+                </div>
+              </div>
+            )}
+            
+            {status === "error" && (
+              <div className="flex items-center gap-4 px-6 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-2xl border border-zinc-800 dark:border-zinc-200">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/20 text-red-500 shrink-0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-sm">Failed to Send</span>
+                  <span className="text-xs opacity-80">{errorMessage || "Something went wrong."}</span>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
