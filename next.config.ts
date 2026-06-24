@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Lighter dev experience: skip heavy source maps in development
   productionBrowserSourceMaps: false,
+  turbopack: {},
 
   webpack: (config, { dev }) => {
     if (dev) {
